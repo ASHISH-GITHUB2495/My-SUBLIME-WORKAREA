@@ -15,9 +15,6 @@ using namespace std;
 
 
 
-
-
-
 int main()
 {
 #ifndef ONLINE_JUDGE
@@ -29,52 +26,34 @@ int main()
 	cin.tie(0);
 
 //////////////////////////////////////start...............
-	int t;
-	cin >> t;
-	while (t--)
+	int flag = 1; ll sum = 0;
+	ll n;
+	cin >> n;
+	ll i = 2; ll p;
+	while (n != 1)
 	{
-		int x, n;
-		cin >> n >> x;
-		int arr[n];
-
-		for1(0, n)
-		cin >> arr[i];
-
-		ll oddsum = 0;
-		ll evensum = 0;
-
-		for1(0, n)
-		{	if (arr[i] % 2 == 0)
-				evensum = evensum + 1;
-			else if (arr[i] % 2 != 0)
-				oddsum = oddsum + 1;
-		}
-		if (x > n)
+		if (n % i == 0)
 		{
-			cout << "No" << endl;
-			continue;
+			n = n / i;
+			p = i;
 		}
-
-		if (x % 2 != 0 && oddsum > x || evensum >= x / 2 && evensum != 0 && oddsum >= x / 2 && oddsum != 0)
+		else
 		{
-			cout << "Yes" << endl;
-			continue;
-
+			cout << i << endl;
+			if (i == 2)
+				i++;
+			else
+				i += 2;
 		}
-		if (x == 2 && oddsum > x || evensum >= x / 2 && oddsum >= x / 2)
-		{
-			cout << "Yes" << endl;
-			continue;
-		}
-
-
-
-
-
-
-
 
 	}
+	cout << p << endl;
+
+
+
+
+
+
 /////////////////////////////end................................... ....
 #ifndef ONLINE_JUDGE
 	//printf("\nRun Time -> %.10fs\n", (double)(clock() - tStart) / CLOCKS_PER_SEC);
