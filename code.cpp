@@ -1,77 +1,13 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-
 #define pb push_back
 #define ll long long int
-#define mp make_pair
-#define mt make_tuple
 #define mod 100000
 #define for1(k,n) for(ll i=k;i<n;i++)
 #define for2(k,n) for(ll j=k;j<n;j++)
 #define E cout<<endl
-#define max 50000
-#define IOS ios_base:: sync_with_stdio(false);cin.tie(0);
-
-
-int n;          //number of vertices
-vector <pair<int, int>> *adj;
-int *dist;
-bool *vis;
-
-int findMinVertex()
-{
-	int min = -1;
-
-	for (int i = 0; i < n; i++)
-	{
-		if (vis[i] == false && ( min == -1 || dist[i] < dist[min]))
-			min = i;
-	}
-
-	return min;
-}
-
-
-void dijkstra (  int src) // actual dijkstra algorithm
-{
-
-	fill(dist, dist + n, 999);
-	fill(vis, vis + n, 0);
-
-	dist[src] = 0; //src to src should be zero
-
-	for (int i = 0; i < n ; i++) //or may be n-1 because when at n-1 vertex all of then should be already visited;
-	{
-		int min = findMinVertex();
-		vis[min] = true;
-
-		for (int j = 0; j < adj[min].size(); j++)
-		{
-			if (!vis[adj[min][j].first])
-			{
-				int newDist = dist[min] + adj[min][j].second;
-
-				if (newDist < dist[adj[min][j].first])
-					dist[adj[min][j].first] = newDist;
-
-
-
-			}
-		}
-
-
-
-
-	}
-
-
-
-	for (int i = 0; i < n; i++)
-		cout << i << " " << dist[i] << endl;
-
-
-}
+#define max 100000
 
 
 
@@ -83,36 +19,16 @@ int main()
 	freopen("input.txt", "r", stdin);
 	freopen("output.txt", "w", stdout);
 #endif
-
-	IOS
-
+	ios_base:: sync_with_stdio(false);
+	cin.tie(0);
 //////////////////////////////////////start...............
-
-	/*here we are not takeing weights , such that unweited graph and we will consider
-	the edge distance as 1 for all edges*/
-	int e;
-	cin >> n >> e;            //just building a simple graph that is adjacency list
-	dist = new int [n];
-	vis = new bool [n];
-	adj = new vector<pair<int, int>> [n];
-
-	int u, v, w;
-	for1(0, e)
-	{
-		cin >> u >> v >> w;
-		adj[u].pb({v, w});
-		adj[v].pb({u, w});
-	}
-
-	dijkstra(0);
-
 
 
 
 
 /////////////////////////////end................................... ....
 #ifndef ONLINE_JUDGE
-	//printf("\nRun Time -> %.10fs\n", (double)(clock() - tStart) / CLOCKS_PER_SEC);
+	cout << "\nDone in " << (double) clock() / CLOCKS_PER_SEC << "sec" << endl;
 #endif
 	return 0;
 
@@ -125,3 +41,10 @@ int main()
 //ctrl+left to jump left of line or vice versa
 //ctrl+shift+"/"  to comment whole block and vice versa for undo
 //ctrl+"/" for commenting a line
+
+/*
+when N <= 10, then both O(N!) and O(2N) are ok (for 2N probably N <= 20 is ok too)
+when N <= 100, then O(N3) is ok (I guess that N4 is also ok, but never tried)
+when N <= 1.000, then N2 is also ok
+when N <= 1.000.000, then O(N) is fine (I guess that 10.000.000 is fine too, but I never tried in contest)
+finally when N = 1.000.000.000 then O(N) is NOT ok, you have to find something better…*/
