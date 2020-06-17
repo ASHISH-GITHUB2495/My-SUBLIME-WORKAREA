@@ -11,27 +11,6 @@ using namespace std;
 #define matrix  vector <vector <ll>>
 
 
-int checkPallindrome(ll n)
-{
-	std::vector<int> v;
-	while (n != 0)
-	{
-		int a;
-		a = n % 10;
-		n = n / 10;
-		v.pb(a);
-	}
-
-	for (int i = 0; i < v.size(); i++)
-	{
-		if (v[i] != v[v.size() - 1 - i])
-		{
-			return 0;
-		}
-	}
-	return 1;
-
-}
 
 
 
@@ -47,31 +26,36 @@ int main()
 
 //////////////////////////////////////start...............
 
-	ll n;
-	cin >> n;         // when n = 3;
-	ll large = 1;
+	ll count = 1;
+	ll prime;
+	for (ll i = 3; i < 999999999 && count < 10001; i = i + 2)
+	{	int flag = 1;
+		for (ll j = 2; j <= i / 2; j++)
+		{
+			if (i % j == 0)
+			{
+				flag = 0;
+				break;
+			}
 
-	ll a = pow(10, n ) / 10;
-	ll b = pow(10, n ) / 10;
 
-	cout << a << " " << b << endl;
-	for1(a, (a * 10) - 1)
-	{
-		for2(100, (b * 10) - 1)
-		{	int flag = 0;
-			ll pro = i * j;
-			flag = checkPallindrome(pro);
-			if (flag == 1 && large < pro)
-				large = pro;
+
+
+		}
+		if (flag == 1)
+		{
+			prime = i;
+			count++;
 		}
 	}
 
-	cout << large << endl;
+	cout << prime << " " << count << endl;
+
 
 
 /////////////////////////////end................................... ....
 #ifndef ONLINE_JUDGE
-	cout << "\nDone in " << (double) clock() / CLOCKS_PER_SEC << "sec" << endl;
+	printf("\nRun Time -> %.10fs\n", (double)(clock() - tStart) / CLOCKS_PER_SEC);
 #endif
 	return 0;
 

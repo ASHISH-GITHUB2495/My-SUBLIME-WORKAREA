@@ -23,6 +23,71 @@ int main()
 	cin.tie(0);
 //////////////////////////////////////start...............
 
+	int t;
+	cin >> t;
+	while (t--)
+	{
+		int n, data, k;
+		cin >> n >> k;
+
+		vector <int > vec;
+
+		while (n > 0)
+		{
+
+			vec.pb(n % 10);
+			n = n / 10;
+		}
+		int  count = 0;
+
+
+		for (int i = 0; i < n; i++)
+		{
+			if (vec[i] == 0)
+			{
+				int flag1 = 0 ; int flag2 = 0;
+				for (int j = i - 1; j >= i - k && j > 0; j--) //left towards
+				{
+					if (vec[j] == 1)
+					{
+						flag1 = 1;
+						break;
+					}
+
+				}
+				for (int j = i + 1; j < i + k && j < n; j++) // towards right
+				{
+					if (vec[j] == 1)
+					{	flag2 = 1;
+						break;
+					}
+				}
+
+				if (flag2 == 0 && flag1 == 0)
+				{	vec[i] = 1;
+					count++;
+				}
+
+			}
+		}
+
+
+		cout << count << endl;
+
+
+
+
+
+
+
+
+
+	}
+
+
+
+
+
 
 
 
