@@ -2,12 +2,14 @@
 using namespace std;
 
 #define pb push_back
-#define ll long long int
-#define mod 100000
+#define ll unsigned long long int
+#define mod 1000000007
 #define for1(k,n) for(ll i=k;i<n;i++)
 #define for2(k,n) for(ll j=k;j<n;j++)
 #define E cout<<endl
 #define max 100000
+#define matrix  vector <vector <ll>>
+
 
 
 
@@ -19,35 +21,60 @@ int main()
 	freopen("input.txt", "r", stdin);
 	freopen("output.txt", "w", stdout);
 #endif
+
 	ios_base:: sync_with_stdio(false);
 	cin.tie(0);
+
 //////////////////////////////////////start...............
-	ll n;
-	cin >> n;
-	std::vector<int> v;
-	while (n != 0)
-	{
-		int a;
-		a = n % 10;
-		n = n / 10;
-		v.pb(a);
-	}
+	// finding pythagorian triplet where a2 + b2 =c2 and a+b+c=1000
+	while (true)
 
-	for (int i = 0; i < v.size(); i++)
 	{
-		if (v[i] != v[v.size() - 1 - i])
-		{
-			cout << "no" << endl;
+		ll n;
+		cin >> n;
+		if (n == 0)
+			break;
+
+		ll i = 2; ll count = 0; int flag = 0;
+
+
+
+		while (n % 2 == 0)
+		{	n = n / 2;
+			count++;
+			flag = 1;
 		}
+		if (flag == 1)
+			cout << i << "^" << count << " ";
+
+
+		count = 0; flag = 0;
+		i = 3;
+		while (n != 1)
+		{
+			if (n % i == 0)
+			{	flag = 1;
+				n = n / i;
+				count++;
+
+			}
+			else
+			{
+				if (flag == 1)
+					cout << i << "^" << count << " ";
+				i = i + 2;
+				count = 0;
+				flag = 0;
+			}
+
+		}
+
+		cout << i << "^" << count << " ";
+		E;
 	}
-
-	cout << "yes";
-
-
-
 /////////////////////////////end................................... ....
 #ifndef ONLINE_JUDGE
-	cout << "\nDone in " << (double) clock() / CLOCKS_PER_SEC << "sec" << endl;
+	printf("\nRun Time -> %.10fs\n", (double)clock()  / CLOCKS_PER_SEC);
 #endif
 	return 0;
 
@@ -60,10 +87,3 @@ int main()
 //ctrl+left to jump left of line or vice versa
 //ctrl+shift+"/"  to comment whole block and vice versa for undo
 //ctrl+"/" for commenting a line
-
-/*
-when N <= 10, then both O(N!) and O(2N) are ok (for 2N probably N <= 20 is ok too)
-when N <= 100, then O(N3) is ok (I guess that N4 is also ok, but never tried)
-when N <= 1.000, then N2 is also ok
-when N <= 1.000.000, then O(N) is fine (I guess that 10.000.000 is fine too, but I never tried in contest)
-finally when N = 1.000.000.000 then O(N) is NOT ok, you have to find something better…*/

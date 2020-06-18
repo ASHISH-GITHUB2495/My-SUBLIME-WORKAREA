@@ -25,37 +25,28 @@ int main()
 	cin.tie(0);
 
 //////////////////////////////////////start...............
+	// finding pythagorian triplet where a2 + b2 =c2 and a+b+c=1000
+	ll sum = 2;
+	int n;
+	cin >> n;
+	bool arr[n];
+	fill(arr, arr + n, false);
 
-	ll count = 1;
-	ll prime;
-	for (ll i = 3; i < 999999999 && count < 10001; i = i + 2)
-	{	int flag = 1;
-		for (ll j = 2; j <= i / 2; j++)
+
+
+	for (int i = 3; i < n; i = i + 2)
+	{
+		if (arr[i] == false)
 		{
-			if (i % j == 0)
-			{
-				flag = 0;
-				break;
-			}
-
-
-
-
-		}
-		if (flag == 1)
-		{
-			prime = i;
-			count++;
+			sum = sum + i;
+			for (int j = i + i; j < n; j = j + i)
+				arr[j] = true;
 		}
 	}
-
-	cout << prime << " " << count << endl;
-
-
-
+	cout << sum << endl;
 /////////////////////////////end................................... ....
 #ifndef ONLINE_JUDGE
-	printf("\nRun Time -> %.10fs\n", (double)(clock() - tStart) / CLOCKS_PER_SEC);
+	//printf("\nRun Time -> %.10fs\n", (double)(clock() - tStart) / CLOCKS_PER_SEC);
 #endif
 	return 0;
 

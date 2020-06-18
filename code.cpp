@@ -10,6 +10,60 @@ using namespace std;
 #define max 100000
 
 
+ll gcd(ll a, ll b)
+{
+	if (b == 0)
+		return a;
+
+	return gcd(b , a % b);
+
+}
+
+
+ll naiveApproach(ll n)
+{
+	ll count = 0;
+
+	for (ll i = 1; i <= n; i++)
+		if (gcd(i, n) == 1)
+			count++;
+
+	return count;
+
+}
+
+ll eulersTotientFunction(ll n)
+{
+	ll res = n;
+
+
+	for (ll i = 2; i * i <= n; i++)
+	{
+		if (n % i == 0)
+		{
+			res = res / i;
+			res = res * (i - 1);
+
+			while (n % i == 0)
+				n = n / i;
+
+
+
+
+		}
+	}
+
+	if (n > 1)
+	{	res = res / n; res = res * (n - 1);
+	}
+	return res;
+}
+
+
+
+
+
+
 
 
 int main()
@@ -23,71 +77,18 @@ int main()
 	cin.tie(0);
 //////////////////////////////////////start...............
 
-	int t;
-	cin >> t;
-	while (t--)
-	{
-		int n, data, k;
-		cin >> n >> k;
 
-		vector <int > vec;
-
-		while (n > 0)
-		{
-
-			vec.pb(n % 10);
-			n = n / 10;
-		}
-		int  count = 0;
+	int n;
+	cin >> n;
 
 
-		for (int i = 0; i < n; i++)
-		{
-			if (vec[i] == 0)
-			{
-				int flag1 = 0 ; int flag2 = 0;
-				for (int j = i - 1; j >= i - k && j > 0; j--) //left towards
-				{
-					if (vec[j] == 1)
-					{
-						flag1 = 1;
-						break;
-					}
-
-				}
-				for (int j = i + 1; j < i + k && j < n; j++) // towards right
-				{
-					if (vec[j] == 1)
-					{	flag2 = 1;
-						break;
-					}
-				}
-
-				if (flag2 == 0 && flag1 == 0)
-				{	vec[i] = 1;
-					count++;
-				}
-
-			}
-		}
-
-
-		cout << count << endl;
-
-
-
-
-
-
-
-
-
-	}
-
-
-
-
-
+	//Naive approach to find the co-prime upto n with n; Compelxity O(nlogn);-
+	//cout << setprecision(10);
+	cout << "count of co-prime by Navive approach : " << naiveApproach(n) << endl;
+	cout << "Time taken by naive = " << (double) clock() / CLOCKS_PER_SEC << endl;
+	double time = (double) clock() / CLOCKS_PER_SEC;
+	cout << "count of co-prime by ETF approch : " << eulersTotientFunction(n) << endl;
+	cout << "Time taken by ETF = " << ((double) clock() / CLOCKS_PER_SEC) - time << endl;
 
 
 

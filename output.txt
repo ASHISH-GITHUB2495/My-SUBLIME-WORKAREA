@@ -1,8 +1,6 @@
-0
-0
-0
-0
-0
-0
+count of co-prime by Navive approach : 4000000
+Time taken by naive = 2.377
+count of co-prime by ETF approch : 4000000
+Time taken by ETF = 2.2031e-016
 
-Done in 0sec
+Done in 2.377sec
