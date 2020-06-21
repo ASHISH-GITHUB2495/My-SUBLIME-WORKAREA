@@ -8,58 +8,50 @@ using namespace std;
 #define for2(k,n) for(ll j=k;j<n;j++)
 #define E cout<<endl
 #define max 1000000
-int pre[max + 1];
+vector <int> adj[2001];
+int vis[2001];
+int col[2001];
 
-void buildPrimeFactorSeive()
-{
-	fill(pre, pre + max + 1, -1); //filling all in starting with -1
-	pre[0] = 0;
-	pre[1] = 1;
-	for (int i = 2; i <= max; i++)
+
+bool dfs(int s)
+{	fill(vis, vis + 2001, 0);
+	fill(col, col + 2001, -1);
+	stack <int> st;
+	st.push(s); int c = 1;
+	col[s] = c;
+
+	while (!st.empty())
 	{
-		if (pre[i] == -1)
+		int f = st.top(); st.pop();
+
+
+		if (vis[f] != 1)
+			vis[f] = 1;
+
+		for (int i = 0; i < adj[f].size(); i++)
 		{
-			for (int j = i; j <= max; j = j + i)
+
+			if (vis[adj[f][i]] == 0)
 			{
-				if (pre[j] == -1)
-					pre[j] = i;
+				dfs(adj[f][i]);
+				col[adj[f][i]] = c ^ 1;
+
 			}
+
+			if (col[adj[f][i]] == col[f])
+				return false;
+
 		}
+
+
+
 	}
 
 
 
+	return true;
 
 }
-
-void factorPrint(int n)
-{
-	vector <int> vec;
-	while (n != 1)
-	{
-		vec.pb(pre[n]);
-		n = n / pre[n];
-
-	}
-
-	int same = vec[0];
-	int count = 1;
-	int i;
-	for ( i = 1; i < vec.size(); i++)
-	{
-		if (same == vec[i])
-			count++;
-		else
-		{	cout << same << "^" << count << " ";
-			count = 1;
-			same = vec[i];
-		}
-	}
-	cout << same << "^" << count << " ";
-}
-
-
-
 
 
 int main()
@@ -72,14 +64,37 @@ int main()
 	ios_base:: sync_with_stdio(false);
 	cin.tie(0);
 //////////////////////////////////////start...............
-	int n;
-	cin >> n;
-	buildPrimeFactorSeive();
-	factorPrint(n);
+	int t;
+	cin >> t;
+	for (int k = 1; k <= t; k++)
+	{
 
+
+		int n, m;
+		cin >> n >> m;
+		int u, v;
+
+		for (int i = 1; i <= n; i++)
+			adj[i].clear();
+
+		for (int i = 0; i < m; i++)
+		{	cin >> u >> v;
+			adj[u].pb(v);
+			adj[v].pb(u);
+
+		}
+
+		bool ans = dfs(1);
+		cout << "Scenario #" << t << ":" << endl;
+		if (ans)
+			cout << "No suspicious bugs found!" << endl;
+		else
+			cout << "Suspicious bugs found!" << endl;
+
+	}
 /////////////////////////////end................................... ....
 #ifndef ONLINE_JUDGE
-	cout << "\nDone in " << (double) clock() / CLOCKS_PER_SEC << "sec" << endl;
+	//cout << "\nDone in " << (double) clock() / CLOCKS_PER_SEC << "sec" << endl;
 #endif
 	return 0;
 
