@@ -7,60 +7,56 @@ using namespace std;
 #define for1(k,n) for(ll i=k;i<n;i++)
 #define for2(k,n) for(ll j=k;j<n;j++)
 #define E cout<<endl
-#define max 100000
+#define max 1000000
+int pre[max + 1];
 
-
-ll gcd(ll a, ll b)
+void buildPrimeFactorSeive()
 {
-	if (b == 0)
-		return a;
-
-	return gcd(b , a % b);
-
-}
-
-
-ll naiveApproach(ll n)
-{
-	ll count = 0;
-
-	for (ll i = 1; i <= n; i++)
-		if (gcd(i, n) == 1)
-			count++;
-
-	return count;
-
-}
-
-ll eulersTotientFunction(ll n)
-{
-	ll res = n;
-
-
-	for (ll i = 2; i * i <= n; i++)
+	fill(pre, pre + max + 1, -1); //filling all in starting with -1
+	pre[0] = 0;
+	pre[1] = 1;
+	for (int i = 2; i <= max; i++)
 	{
-		if (n % i == 0)
+		if (pre[i] == -1)
 		{
-			res = res / i;
-			res = res * (i - 1);
-
-			while (n % i == 0)
-				n = n / i;
-
-
-
-
+			for (int j = i; j <= max; j = j + i)
+			{
+				if (pre[j] == -1)
+					pre[j] = i;
+			}
 		}
 	}
 
-	if (n > 1)
-	{	res = res / n; res = res * (n - 1);
-	}
-	return res;
+
+
+
 }
 
+void factorPrint(int n)
+{
+	vector <int> vec;
+	while (n != 1)
+	{
+		vec.pb(pre[n]);
+		n = n / pre[n];
 
+	}
 
+	int same = vec[0];
+	int count = 1;
+	int i;
+	for ( i = 1; i < vec.size(); i++)
+	{
+		if (same == vec[i])
+			count++;
+		else
+		{	cout << same << "^" << count << " ";
+			count = 1;
+			same = vec[i];
+		}
+	}
+	cout << same << "^" << count << " ";
+}
 
 
 
@@ -76,21 +72,10 @@ int main()
 	ios_base:: sync_with_stdio(false);
 	cin.tie(0);
 //////////////////////////////////////start...............
-
-
 	int n;
 	cin >> n;
-
-
-	//Naive approach to find the co-prime upto n with n; Compelxity O(nlogn);-
-	//cout << setprecision(10);
-	cout << "count of co-prime by Navive approach : " << naiveApproach(n) << endl;
-	cout << "Time taken by naive = " << (double) clock() / CLOCKS_PER_SEC << endl;
-	double time = (double) clock() / CLOCKS_PER_SEC;
-	cout << "count of co-prime by ETF approch : " << eulersTotientFunction(n) << endl;
-	cout << "Time taken by ETF = " << ((double) clock() / CLOCKS_PER_SEC) - time << endl;
-
-
+	buildPrimeFactorSeive();
+	factorPrint(n);
 
 /////////////////////////////end................................... ....
 #ifndef ONLINE_JUDGE

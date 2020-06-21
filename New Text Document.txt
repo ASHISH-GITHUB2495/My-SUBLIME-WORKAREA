@@ -1,0 +1,4 @@
+Enter no. upto 10^6 inclusive
+count of co-prime by ETF seive : 400
+
+Done in 0.002sec
