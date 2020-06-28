@@ -13,47 +13,60 @@ using namespace std;
 #define max 50000
 #define IOS ios_base:: sync_with_stdio(false);cin.tie(0);
 //ACTUALLY DIJKSTRA'S ALGORITHM USED FOR FINDING SHORTEST PATH FROM ONE SOURCE TO ALL THE VERTICES OF THE GRAPH......
-
-int n;          //number of vertices
-vector <int> *adj;     //adjlist containing actual weighted graph
+int n;
+vector <int> *adj;
+int *vis;
 int *in;
-int *low;                       //store the shortest path from src to all the vertex
-int *vis;                       //marks the vertex is visited;
+int *low;
+int timer;
 
-int timer;    // globally default to 0
+vector <int> ArtPoint;
 
-void dfs (int s, int par)
+
+
+void dfs(int s, int par = -1)
 {
 	vis[s] = 1;
 	in[s] = low[s] = timer;
 	timer++;
 
-	for (int i = 0; i < adj[s].size(); i++)
+	int children = 0;
+
+	for1(0, adj[s].size())
 	{
 		if (adj[s][i] == par)
 			continue;
 
 		if (vis[adj[s][i]] == 1)
 		{
+
+
 			low[s] = min(low[s], in[adj[s][i]]);
-			// curr node = min of curr node and decendent node
+
 
 		}
 		else
 		{
 			dfs(adj[s][i], s);
 
-			if (low[adj[s][i]] > in[s])
-				cout << s << "-" << adj[s][i] << " is a bridge. \n";
-
 			low[s] = min(low[s], low[adj[s][i]]);
+
+			if (low[adj[s][i]] >= in[s] && par != -1)
+				ArtPoint.pb(s);
+
+			++children;
+
 
 
 		}
 
 
 
+
 	}
+
+	if (par == -1 && children > 1)
+		ArtPoint.pb(s);
 
 
 
@@ -78,22 +91,38 @@ int main()
 //////////////////////////////////////start...............
 	//many of the variables are declared globally for not passing to functions.....
 
-	int m, x, y;
-	cin >> n >> m;          // input of no. of nodes and edges
+	int e, u, v;
+	cin >> n >> e;
+
 
 	adj = new vector <int> [n + 1];
-	in = new int [n + 1];
-	low = new int [n + 1];
 	vis = new int [n + 1];
+	low = new int [n + 1];
+	in = new int [n + 1];
 
-	for1(0, m)
-	cin >> x >> y , adj[x].pb(y) , adj[y].pb(x);
+	fill(vis, vis + n + 1, 0);
+	fill(low, low + n + 1, -1);
+	fill(in, in + n + 1, -1);
+
+
+	while (e--)
+		cin >> u >> v  , adj[u].pb(v)  , adj[v].pb(u);
+
+
 
 
 	dfs(1, -1);
 
-
-
+	for (int i = 1; i <= n; i++)
+	{
+		if (vis[i] == 0)
+		{
+			dfs(i);
+		}
+	}
+	cout << "Articulation Points-------\n";
+	for (int i = 0; i < ArtPoint.size(); i++)
+		cout << ArtPoint[i] << endl;
 
 
 
