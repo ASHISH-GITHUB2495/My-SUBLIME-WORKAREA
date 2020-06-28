@@ -1,101 +1,109 @@
 #include<bits/stdc++.h>
 using namespace std;
 
+
 #define pb push_back
 #define ll long long int
+#define mp make_pair
+#define mt make_tuple
 #define mod 100000
 #define for1(k,n) for(ll i=k;i<n;i++)
 #define for2(k,n) for(ll j=k;j<n;j++)
 #define E cout<<endl
-#define max 100000
+#define max 50000
+#define IOS ios_base:: sync_with_stdio(false);cin.tie(0);
+//ACTUALLY DIJKSTRA'S ALGORITHM USED FOR FINDING SHORTEST PATH FROM ONE SOURCE TO ALL THE VERTICES OF THE GRAPH......
 
+int n;          //number of vertices
+vector <pair<int, int>> *adj;     //adjlist containing actual weighted graph
+int *dist;                       //store the shortest path from src to all the vertex
+bool *vis;                       //marks the vertex is visited;
 
-ll gcd(ll a, ll b)
+int findMinVertex()
 {
-	if (b == 0)
-		return a;
+	int min = -1;
 
-	return gcd(b , a % b);
-
-}
-
-
-ll naiveApproach(ll n)
-{
-	ll count = 0;
-
-	for (ll i = 1; i <= n; i++)
-		if (gcd(i, n) == 1)
-			count++;
-
-	return count;
-
-}
-
-ll eulersTotientFunction(ll n)
-{
-	ll res = n;
-
-
-	for (ll i = 2; i * i <= n; i++)
+	for (int i = 0; i < n; i++)
 	{
-		if (n % i == 0)
-		{
-			res = res / i;
-			res = res * (i - 1);
-
-			while (n % i == 0)
-				n = n / i;
-
-
-
-
-		}
+		if (vis[i] == false && ( min == -1 || dist[i] < dist[min]))
+			min = i;
 	}
 
-	if (n > 1)
-	{	res = res / n; res = res * (n - 1);
-	}
-	return res;
+	return min;
 }
 
 
+void dijkstra (  int src) // actual dijkstra algorithm
+{
+
+	fill(dist, dist + n, 999);
+	fill(vis, vis + n, 0);
+
+	dist[src] = 0; //src to src should be zero
+
+	for (int i = 0; i < n ; i++) //or may be n-1 because when at n-1 vertex all of then should be already visited;
+	{
+		int min = findMinVertex();
+		vis[min] = true;
+
+		for (int j = 0; j < adj[min].size(); j++)
+		{
+			if (!vis[adj[min][j].first])
+			{
+				int newDist = dist[min] + adj[min][j].second;
+
+				if (newDist < dist[adj[min][j].first])
+					dist[adj[min][j].first] = newDist;
 
 
+
+			}
+		}
+
+
+
+
+	}
+
+
+	cout << "nodes" << "   " << "distances" << endl;
+	cout << "---------------------------\n";
+	for (int i = 0; i < n; i++)
+		cout << i << "     " << dist[i] << endl;
+
+
+}
 
 
 
 
 int main()
 {
-#ifndef ONLINE_JUDGE
-	clock_t tStart = clock();
-	freopen("input.txt", "r", stdin);
-	freopen("output.txt", "w", stdout);
-#endif
-	ios_base:: sync_with_stdio(false);
-	cin.tie(0);
+
 //////////////////////////////////////start...............
+	//many of the variables are declared globally for not passing to functions.....
+	int e;
+	cin >> n >> e;
+	dist = new int [n];
+	vis = new bool [n];
+	adj = new vector<pair<int, int>> [n];
+
+	int u, v, w;
+	for1(0, e)
+	{
+		cin >> u >> v >> w;
+		adj[u].pb({v, w});
+		adj[v].pb({u, w});
+	}
+
+	dijkstra(0);
 
 
-	int n;
-	cin >> n;
-
-
-	//Naive approach to find the co-prime upto n with n; Compelxity O(nlogn);-
-	//cout << setprecision(10);
-	cout << "count of co-prime by Navive approach : " << naiveApproach(n) << endl;
-	//double time= (double)clock()  / CLOCKS_PER_SEC;
-	// printf("\ntime taken by naive aproach-> %.10fs\n",time);
-	cout << "count of co-prime by ETF approch : " << eulersTotientFunction(n) << endl;
-	//6printf("Time taken by ETF -> %.10fs\n", ((double)clock()  / CLOCKS_PER_SEC) -time);
 
 
 
 /////////////////////////////end................................... ....
-#ifndef ONLINE_JUDGE
-	cout << "\nDone in " << (double) clock() / CLOCKS_PER_SEC << "sec" << endl;
-#endif
+
 	return 0;
 
 }
@@ -107,10 +115,3 @@ int main()
 //ctrl+left to jump left of line or vice versa
 //ctrl+shift+"/"  to comment whole block and vice versa for undo
 //ctrl+"/" for commenting a line
-
-/*
-when N <= 10, then both O(N!) and O(2N) are ok (for 2N probably N <= 20 is ok too)
-when N <= 100, then O(N3) is ok (I guess that N4 is also ok, but never tried)
-when N <= 1.000, then N2 is also ok
-when N <= 1.000.000, then O(N) is fine (I guess that 10.000.000 is fine too, but I never tried in contest)
-finally when N = 1.000.000.000 then O(N) is NOT ok, you have to find something better…*/
