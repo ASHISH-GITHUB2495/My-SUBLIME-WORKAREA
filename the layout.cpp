@@ -26,6 +26,9 @@ int main()
 
 
 
+
+
+
 /////////////////////////////end................................... ....
 #ifndef ONLINE_JUDGE
 	cout << "\nDone in " << (double) clock() / CLOCKS_PER_SEC << "sec" << endl;
