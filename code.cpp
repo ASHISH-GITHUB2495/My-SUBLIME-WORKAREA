@@ -8,53 +8,9 @@ using namespace std;
 #define for2(k,n) for(ll j=k;j<n;j++)
 #define E cout<<endl
 #define max 100000
-int dx[4] = {0, 1, 0, -1};
-int dy[4] = { -1, 0, 1, 0};
-int n;
-
-int vis[30][30] = {0};
-int dist[30][30] = {0};
-char grid[30][30];
-int ans;
-void dfs(int x, int y)
-{
 
 
-	if (vis[x][y] != 1)
-	{
-		vis[x][y] = 1;
-
-	}
-	for (int i = 0; i < 4; i++)
-	{	int xi = x + dx[i];
-		int yi = y + dy[i];
-
-
-		if ((xi >= 0 && xi < n) && (yi >= 0 && yi < n))
-		{
-
-			if ( grid[xi][yi] == 'E')
-			{
-				if (ans > dist[x][y] + 1)
-					ans = dist[x][y] + 1;
-			}
-			if ((vis[xi][yi] != 1 && (grid[xi][yi] == 'P' )) || grid[xi][yi] == 'E')
-			{
-
-				dist[xi][yi] = dist[x][y] + 1;
-				dfs(xi, yi);
-
-
-			}
-
-		}
-
-
-	}
-
-
-
-}
+// MY OPINION IS TRIAL DEVISION METHOD IS THE BEST METHOD ...AND I ALSO WANT YOU TO HAVE BEST CLEAR IDEA ABOUT IT
 
 
 int main()
@@ -67,20 +23,32 @@ int main()
 	ios_base:: sync_with_stdio(false);
 	cin.tie(0);
 //////////////////////////////////////start...............
-	ans = 0;
-	cin >> n;
-	int x, y, ex, ey;
-	for1(0, n)
-	{	for2(0, n)
-		{
-			cin >> grid[i][j];
-			if (grid[i][j] == 'S') x = i , y = j ;
-			else if (grid[i][j] == 'E') ex = i, ey = j;
-		}
-	}
 
-	dfs(x, y);
-	cout << dist[ex][ey] ;
+	int count = 0; ll sum = 0;
+	// generating my triangle number
+	for (ll i = 1; i >= 1; i++)
+	{
+		sum = sum + i;
+		count = 0;
+		for (ll j = 1; j * j <= sum ; j++)       // counting devisiors
+		{
+			if (sum % j == 0)
+				count += 2;
+		}
+		//count++;
+
+		if (count > 500)
+			break;
+
+
+
+	}
+	ll sq = sqrt(sum);
+
+	if (sq * sq == sum)
+		count-- ;
+
+	cout << sum << endl;
 	/////////////////////////////end.......................................
 #ifndef ONLINE_JUDGE
 	cout << "\nDone in " << (double) clock() / CLOCKS_PER_SEC << "sec" << endl;
