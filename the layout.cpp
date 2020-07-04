@@ -22,14 +22,25 @@ int main()
 	ios_base:: sync_with_stdio(false);
 	cin.tie(0);
 //////////////////////////////////////start...............
+	int n, data;
+	vector <int> vec;
+	for1(0, n)
+	{
+		cin >> data;
+		vec.pb(data);
+	}
+	for (int i = 0; i < vec.size(); i++)
+		cout << vec[i] << " ";
+	// }
 
+	// ll sum = 0;
+	// for1(0, n)
+	// {	int j = vec[i] - n;
+	// 	sum = sum + (j * j);
+	// }
+	//cout << sum << endl;
 
-
-
-
-
-
-/////////////////////////////end................................... ....
+/////////////////////////////end.......................................
 #ifndef ONLINE_JUDGE
 	cout << "\nDone in " << (double) clock() / CLOCKS_PER_SEC << "sec" << endl;
 #endif
