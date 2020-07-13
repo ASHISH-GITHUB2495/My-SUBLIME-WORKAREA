@@ -1,0 +1,179 @@
+ pattern printing problems for loops...
+
+ linear search....circular array also
+
+ palindrome and others numbers(perfect , armstrong..) for hashing,etc.
+
+ prefix sum problems, both 1d and 2d
+
+ slinding window technique...
+ 
+ 
+ 
+ Binary search .....
+ 
+ Gcd of two nubers in Log N
+ 
+ Linear Diphanitne equation
+ 
+ checking primes and sieve of erathores , segmented sieve , 
+ prime factorisation of number in Log N per query.
+
+ Euler Totient Fuction
+ 
+ Fermetts little theorm
+  
+ Wilson theorm
+ 
+ 
+ Finding X^n in Log n
+ modular Arithmetic 
+ Modular Inverse  of a number
+ Modular Exponentiation 
+ chinese Remainder Theorm
+ Factorial Modulo mod
+ Finding nCr and NPr for Queries
+ Inclusion Exclusion Principle
+ 
+ Learn Basic sorting Algorithms
+     which are constructive and swapping terms in it.
+  2 pointer approach
+  read about Bit Manipulation all
+  how to find powerset using string
+ number of subarrays with Xor as Zero (not an algorithm but must do)
+ 
+ Problems Releated to Greedy Algorithms tag
+ Kadane's Algorihtm and problems releated to them 
+ job sequencing and Activity selection problem
+
+ basic recursion like finding factorial 
+  implement Binary search
+  implement Modular Exponentiation
+  Solve recursion Problems like finding subset with given sum and others to get a strong grip
+   
+  Learn about merge sort and quick sort 
+    solve problems releated to Merge sort (count inversion using merge sort )
+    
+ Backtracking problems like sudoko and N queen , 
+  it will help you when you do DP path problems
+   
+Meet in the middle algorithms and problems
+ 
+Divide and conquer problems (Hacker earth)
+
+Next Greater Element / Next smaller Element using stack 
+Problems related to parenthesis .
+ 
+Largest rectangular area in Histogram(concept used in lot of problems.)
+
+problems releated to Heap (Priority queue).
+
+
+-----------------------------
+String Algorithms(cp algorithms & blogs)
+========
+ Hashing on strings and solve problems, understand when collisions happens.
+ Rabin Karp algo
+ Prefix function 
+ KMP algorithm
+ Z-function
+ Manacher's Algorithm
+ Once you have wrapped up the above algorithms , solve a bunch of problems.
+ 
+Tree/Graph representation (Spoj)
+ BFS/DFS traversal in Graph/Tree
+ Diameter ,height , level of tree
+ Euler tour of tree
+ Finding LCA using Euler Tour 
+ Finding LCA using Binary Lifting 
+ Distance between two nodes
+ subtree Problems
+ Solve problems on the above algos
+
+ Connected components 
+ Topological sort 
+ cycle detection in Graph
+ Bipartite Check in Graph
+ Scc using kasaraju's Algo
+ Dijikstra's Algorithms
+ Bellman ford Algorithms
+ Floyd Warshal Algorithms
+ solve problems on the above
+ 
+ Bridges in Graph 
+ Articulation point in Graph
+ minimum spanning tree using kruskal's also
+ prim's Algorithms
+ 0/1 BFS 
+ Finding Bridges online
+ 
+----------------------------------
+ if you are startin with Dyanamic Programming , don't even
+ try to write iterartive DP when you start off with . Start 
+ with recursion and then try to memoize solution.
+  
+   . strong recursion before starting with DP.
+   .understand what is memoizatioin (gfg artical and video series of DP).
+  .initially solve all common existion DP problem like LCS, knapsak, etc to 
+    get idea about how DP works .
+   .Solve the Atcoder Education Contest on Dynamic Programming.(26 problems)
+    .solve problems form different platforms (specifically SPOJ)
+    .then codeforces blog and wonderful problems(Dyanamic programming practice problem codeforces).
+     solve problems on above.
+----------------------------------
+ learn about Digit dyanamic prgrammng(CF blog)
+ solve a bunch of problems on it.
+ Read about DP  with Bitmasks and solve problems(Heacker earth Blog).
+ DP on trees(Articles on dp on tree GFG and rachit jain 3 videos).
+ SOS DP (CF blog)
+ DP is all about solving problems 
+
+ ------------------
+ Disjoint set(using all optimisations)
+ offline queries using Disjoint set
+ kruskal's algo using disjoint
+ Problems on above
+ 
+ Sparse Table (Not that much important)
+ Fenwick Tree(Read about range update tricks also)
+ Binary Lifting on Fenwick Tree
+ Problems on Fenwick Tree(CF)
+
+--------------------
+Matrix Exponentiation (Problems)
+ sqrt decomposition techique(GFG CP algo or CF Blog)
+ update and query operations
+ Mo's Algorithms(powerful array form CF)CF blog and 
+ Segment Trees(Range Queries and point update )
+ Lazy propagation trees
+
+==========
+Last two question of long challenge and codeforces A-E anyway rearly come.
+  Sprague - Grundy Theorm (Gaurav sen)
+  Flows and related Problems(Max and min flow cp algo)
+  Heavy light Decomposition(path problem on tree and google at anudip for that).
+  convex Hull Algorithms(meo's blog at cF)
+  FFT/NTT
+
+ besides learning algorithms constently participate contests
+ solve from according to level and that the above rating on given day at codeforces
+ alternate days solve algorithic problems.
+ 
+
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ 
+  
+  
+
+ 
+   
+  

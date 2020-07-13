@@ -4,14 +4,175 @@ using namespace std;
 #define pb push_back
 #define ll long long int
 #define mod 100000
-#define for1(k,n) for(ll i=k;i<n;i++)
-#define for2(k,n) for(ll j=k;j<n;j++)
+#define rep(i,k,n) for(ll i=k;i<n;i++)
 #define E cout<<endl
-#define max 100000
+#define MAX  1000002
+#define u_m  unordered_map        //hashing container
 
 
-// MY OPINION IS TRIAL DEVISION METHOD IS THE BEST METHOD ...AND I ALSO WANT YOU TO HAVE BEST CLEAR IDEA ABOUT IT
+void glid(ll a, ll b, ll n, ll heights[], ll tastiness[])
+{
 
+	ll totalTest = 0;
+	if (a == b)
+		cout << tastiness[a] << endl ;
+
+	else
+	{
+		if (a > b)   // gliding toward left
+		{
+			if (heights[b] >= heights[a])
+			{
+				cout << "-1 " << endl;
+			}
+			else
+			{
+				ll flag = 1; ll time = 1; ll high = 0;
+				totalTest = tastiness[a]; ll curr = 1; ll taste = 1;
+
+				for (ll i = a - 1; i >= b; i--)
+				{
+
+					if (heights[i] >= heights[a])
+					{
+						flag = 2; break;
+					}
+
+					else if ((heights[i] < heights[a] && heights[i] >= heights[b] ) || i  == b)
+					{
+						if (time == 1)
+						{
+							high = heights[i];
+							totalTest = tastiness[a] + tastiness[i];
+							time++;
+							curr = i;
+							taste = totalTest;
+						}
+						else if (heights[i] >= heights[curr])
+						{
+							if (heights[i] >= high)
+							{
+								high = heights[i];
+								totalTest = tastiness[a] + tastiness[i];
+								curr = i;
+								taste = totalTest;
+							}
+							else
+							{
+								totalTest -= tastiness[curr];
+								totalTest += tastiness[i];
+								curr = i;
+
+							}
+
+						}
+						else if (heights[i] < heights[curr])
+						{	totalTest = totalTest + tastiness[i] , curr = i;
+
+						}
+
+					}
+
+
+
+
+
+
+
+				}
+
+				if (flag == 2)
+					cout << "-1 " << endl;
+				else
+					cout << totalTest << endl;
+
+
+			}
+
+		}
+		else           // gliding towards right
+		{	//cout << "\n------------------\n";
+			if (heights[a] <= heights[b])
+			{
+				cout << "-1" << endl;
+			}
+
+			else
+			{
+				ll flag = 1; ll time = 1; ll high = 0;
+				totalTest = tastiness[a]; ll curr = 1; ll taste = 1;
+
+				for (ll i = a + 1; i <= b; i++)
+				{
+					if (heights[i] >= heights[a])
+					{
+						flag = 2; break;
+
+					}
+					else if ((heights[i] < heights[a] && heights[i] >= heights[b]) || i  == b)
+					{
+						if (time == 1)
+						{
+							high = heights[i];
+							totalTest = tastiness[i] + totalTest;
+							time++;
+							curr = i ;
+							taste = totalTest;
+
+
+						}
+						else if (heights[i] >= heights[curr])
+						{
+							if (heights[i] >= high)
+							{
+								high = heights[i];
+								totalTest = tastiness[a] + tastiness[i];
+								curr = i;
+								taste = totalTest;
+
+
+							}
+							else
+							{
+								totalTest -= tastiness[curr];
+								totalTest += tastiness[i];
+								curr = i;
+
+							}
+
+						}
+						else if (heights[i] < heights[curr])
+						{	totalTest = totalTest + tastiness[i] , curr = i;
+
+						}
+
+
+
+
+
+					}
+
+
+
+
+
+				}
+
+				if (flag == 2)
+					cout << "-1 " << endl;
+				else
+					cout << totalTest << endl;
+
+
+			}
+		}
+
+
+
+
+	}
+	return;
+}
 
 int main()
 {
@@ -23,35 +184,72 @@ int main()
 	ios_base:: sync_with_stdio(false);
 	cin.tie(0);
 //////////////////////////////////////start...............
+	ll n;
+	ll  q, data;
+	cin >> n >> q;
+	ll heights[n] = {0};
+	ll tastiness[n] = {0};
 
-	int count = 0; ll sum = 0;
-	// generating my triangle number
-	for (ll i = 1; i >= 1; i++)
+
+	rep(i, 0, n)
 	{
-		sum = sum + i;
-		count = 0;
-		for (ll j = 1; j * j <= sum ; j++)       // counting devisiors
-		{
-			if (sum % j == 0)
-				count += 2;
-		}
-		//count++;
+		cin >> heights[i];
 
-		if (count > 500)
-			break;
+	}
+
+	rep(i, 0, n)
+	{	cin >> tastiness[i] ;
+	}
+
+
+	rep(i, 0, q)
+	{
+		ll r;
+		ll b, c; ll k;
+		cin >> r;
+
+
+		if (r == 1)
+		{
+			cin >> b >> k;
+			b--;
+			tastiness[b] = k;
+
+
+		}
+		else
+		{
+			cin >> b >> c;
+			b--; c--;
+
+			glid(b, c, n, heights, tastiness);
+
+
+		}
 
 
 
 	}
-	ll sq = sqrt(sum);
 
-	if (sq * sq == sum)
-		count-- ;
 
-	cout << sum << endl;
-	/////////////////////////////end.......................................
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+////////////////////////////////////////end-.........................
 #ifndef ONLINE_JUDGE
-	cout << "\nDone in " << (double) clock() / CLOCKS_PER_SEC << "sec" << endl;
+	//cout << "\nDone in " << (double) clock() / CLOCKS_PER_SEC << "sec" << endl;
 #endif
 	return 0;
 

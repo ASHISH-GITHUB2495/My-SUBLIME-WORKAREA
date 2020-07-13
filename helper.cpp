@@ -4,12 +4,37 @@ using namespace std;
 #define pb push_back
 #define ll long long int
 #define mod 100000
-#define for1(k,n) for(ll i=k;i<n;i++)
-#define for2(k,n) for(ll j=k;j<n;j++)
+#define rep(i,k,n) for(ll i=k;i<n;i++)
 #define E cout<<endl
-#define max 100000
+#define MAX  1000002
+#define u_m  unordered_map        //hashing container
+
+ll value;
 
 
+
+ll vaccineProcessor (ll pop, ll x)
+{
+
+	if (pop == x)
+		value = -1 , x = 2 * x;
+
+	else if (pop < x)
+		x = pop * 2 , value = -1;
+	else
+	{
+
+		if ( (pop - x) < x)
+			x = (pop / 2) * 2  , value = x;
+
+		else
+			value = pop - x , x = x * 2;
+
+
+	}
+	//cout << "\ngiveing vaccine at pop " << pop << " is " << x << " value is " << value << endl;
+	return x;
+}
 
 
 int main()
@@ -22,15 +47,142 @@ int main()
 	ios_base:: sync_with_stdio(false);
 	cin.tie(0);
 //////////////////////////////////////start...............
-	ll n = 76576500; ll count = 0;
+	int t;
+	cin >> t;
+	while (t--)
+	{
+		ll n, x, p;
+		cin >> n >> x;
+		ll population[n];
+		ll population2[n];
+		rep(i, 0, n)
+		{
+			cin >>  p;
+			population[i] = p;
+			population2[i] = p;
+		}
 
-	for (ll i = 1; i * i <= n; i++)
-		if (n % i == 0)
-			count++;
-	cout << count << endl;
-	/////////////////////////////end.......................................
+		sort(population, population + n);
+		sort(population2, population2 + n);
+
+
+		ll a;
+		int count = 0;
+		int flag ; ll days = 0;
+		ll k = 0;
+		while (1)
+		{
+			//cout << "\n vaccine have -->" << x << endl;
+			flag = 1;
+			int step = 1;
+			pair <ll, ll> prev;
+			pair <ll, ll> curr;
+
+			prev = make_pair(-1, -1);
+			curr = make_pair(-1, -1);
+
+
+			int index;
+
+
+			for (ll i = k; i < n; i++)
+			{
+				if (population[i] != -1 )
+				{
+					a = vaccineProcessor(population[i], x);
+					if (x <= a)
+					{	flag = 2;
+						index = i;
+						k = i;
+						break;
+					}
+					else
+						count++;
+
+				}
+			}
+			//k--;
+			if (flag == 1)
+			{	//cout << "how" << endl;
+				days = days + count;
+				break;
+			}
+
+			//chosing the country............
+
+
+			//processing country
+
+			/*	cout << endl << "chosing country--->" << population[index] << endl;
+				if (population[index] == x)
+					population[index] = -1 ;
+
+				else if (population[index] < x)
+					x = population[index] , population[index] = -1;
+				else
+				{
+
+					if ( (population[index] - x) < x)
+						x = population[index] / 2 , population[index] = x;
+
+					else
+						population[index] = population[index] - x;
+
+
+				}*/
+
+
+
+
+
+			population[index] = value;
+
+			//vaccine updata.....................
+
+			x = a;
+
+			//population updation......................
+			for (int i = 0; i < n; i++)
+			{
+				if (population[i] != -1)
+				{
+					if ((population[i] * 2) > population2[i])
+						population[i] = population2[i];
+					else
+						population[i] = population[i] * 2;
+
+
+
+
+				}
+			}
+
+
+
+
+
+
+			/*	for (int i = 0; i < n; i++)
+					cout << population[i] << " ";
+				cout << "\n" << x << endl;
+				E;*/
+
+			days++;
+		}
+
+
+
+		/*
+				cout << "ands->" << days  << endl << endl;
+				cout << "\n------------------\n";*/
+
+		cout << days << endl;
+
+	}
+
+////////////////////////////////////////end-.........................
 #ifndef ONLINE_JUDGE
-	cout << "\nDone in " << (double) clock() / CLOCKS_PER_SEC << "sec" << endl;
+//cout << "\nDone in " << (double) clock() / CLOCKS_PER_SEC << "sec" << endl;
 #endif
 	return 0;
 
