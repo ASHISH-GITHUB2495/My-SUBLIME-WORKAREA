@@ -10,170 +10,6 @@ using namespace std;
 #define u_m  unordered_map        //hashing container
 
 
-void glid(ll a, ll b, ll n, ll heights[], ll tastiness[])
-{
-
-	ll totalTest = 0;
-	if (a == b)
-		cout << tastiness[a] << endl ;
-
-	else
-	{
-		if (a > b)   // gliding toward left
-		{
-			if (heights[b] >= heights[a])
-			{
-				cout << "-1 " << endl;
-			}
-			else
-			{
-				ll flag = 1; ll time = 1; ll high = 0;
-				totalTest = tastiness[a]; ll curr = 1; ll taste = 1;
-
-				for (ll i = a - 1; i >= b; i--)
-				{
-
-					if (heights[i] >= heights[a])
-					{
-						flag = 2; break;
-					}
-
-					else if ((heights[i] < heights[a] && heights[i] >= heights[b] ) || i  == b)
-					{
-						if (time == 1)
-						{
-							high = heights[i];
-							totalTest = tastiness[a] + tastiness[i];
-							time++;
-							curr = i;
-							taste = totalTest;
-						}
-						else if (heights[i] >= heights[curr])
-						{
-							if (heights[i] >= high)
-							{
-								high = heights[i];
-								totalTest = tastiness[a] + tastiness[i];
-								curr = i;
-								taste = totalTest;
-							}
-							else
-							{
-								totalTest -= tastiness[curr];
-								totalTest += tastiness[i];
-								curr = i;
-
-							}
-
-						}
-						else if (heights[i] < heights[curr])
-						{	totalTest = totalTest + tastiness[i] , curr = i;
-
-						}
-
-					}
-
-
-
-
-
-
-
-				}
-
-				if (flag == 2)
-					cout << "-1 " << endl;
-				else
-					cout << totalTest << endl;
-
-
-			}
-
-		}
-		else           // gliding towards right
-		{	//cout << "\n------------------\n";
-			if (heights[a] <= heights[b])
-			{
-				cout << "-1" << endl;
-			}
-
-			else
-			{
-				ll flag = 1; ll time = 1; ll high = 0;
-				totalTest = tastiness[a]; ll curr = 1; ll taste = 1;
-
-				for (ll i = a + 1; i <= b; i++)
-				{
-					if (heights[i] >= heights[a])
-					{
-						flag = 2; break;
-
-					}
-					else if ((heights[i] < heights[a] && heights[i] >= heights[b]) || i  == b)
-					{
-						if (time == 1)
-						{
-							high = heights[i];
-							totalTest = tastiness[i] + totalTest;
-							time++;
-							curr = i ;
-							taste = totalTest;
-
-
-						}
-						else if (heights[i] >= heights[curr])
-						{
-							if (heights[i] >= high)
-							{
-								high = heights[i];
-								totalTest = tastiness[a] + tastiness[i];
-								curr = i;
-								taste = totalTest;
-
-
-							}
-							else
-							{
-								totalTest -= tastiness[curr];
-								totalTest += tastiness[i];
-								curr = i;
-
-							}
-
-						}
-						else if (heights[i] < heights[curr])
-						{	totalTest = totalTest + tastiness[i] , curr = i;
-
-						}
-
-
-
-
-
-					}
-
-
-
-
-
-				}
-
-				if (flag == 2)
-					cout << "-1 " << endl;
-				else
-					cout << totalTest << endl;
-
-
-			}
-		}
-
-
-
-
-	}
-	return;
-}
-
 int main()
 {
 #ifndef ONLINE_JUDGE
@@ -184,72 +20,37 @@ int main()
 	ios_base:: sync_with_stdio(false);
 	cin.tie(0);
 //////////////////////////////////////start...............
-	ll n;
-	ll  q, data;
-	cin >> n >> q;
-	ll heights[n] = {0};
-	ll tastiness[n] = {0};
-
-
-	rep(i, 0, n)
+	int t;
+	cin >> t;
+	while (t--)
 	{
-		cin >> heights[i];
+		int n;
+		cin >> n;
+		int arr[n];
 
-	}
+		rep(i, 0, n)
+		cin >> arr[i];
+		int flag = 1;
 
-	rep(i, 0, n)
-	{	cin >> tastiness[i] ;
-	}
-
-
-	rep(i, 0, q)
-	{
-		ll r;
-		ll b, c; ll k;
-		cin >> r;
-
-
-		if (r == 1)
+		rep(i, 0, n)
 		{
-			cin >> b >> k;
-			b--;
-			tastiness[b] = k;
+			if (arr[i] % 2 == 0)
+			{
+				flag = 0; break;
 
-
+			}
 		}
+
+		if (flag == 1)
+			cout << "YES" << endl;
 		else
-		{
-			cin >> b >> c;
-			b--; c--;
-
-			glid(b, c, n, heights, tastiness);
-
-
-		}
-
-
+			cout << "NO" << endl;
 
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 ////////////////////////////////////////end-.........................
 #ifndef ONLINE_JUDGE
-	//cout << "\nDone in " << (double) clock() / CLOCKS_PER_SEC << "sec" << endl;
+	cout << "\nDone in " << (double) clock() / CLOCKS_PER_SEC << "sec" << endl;
 #endif
 	return 0;
 
