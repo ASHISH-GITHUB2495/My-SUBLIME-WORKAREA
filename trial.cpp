@@ -9,37 +9,42 @@ using namespace std;
 #define MAX  1000002
 #define u_m  unordered_map        //hashing container
 
+bool isValid(int max, int arr[], int k, int n)
+{	int student = 1;
+	int sum = 0;
 
-
-int binarySearchPeakElementBitonic (int n, int arr[])
-{
-
-
-
-	int low = 0 , high = n - 1;
-
-	while (low <= high)
+	for (int i = 0; i < n; i++)
 	{
+		sum = sum + arr[i];
 
-		int mid = low + (high - low) / 2;
-		//returning mid ....
-		if ((mid > 0 && mid < n - 1) && (arr[mid] >= arr[mid + 1]  && arr[mid] >= arr[mid - 1])) //if mid lies between corners
-			return arr[mid];
-		else if (mid == 0 && arr[mid] >= arr[mid + 1]) //if mid lies if first index
-			return arr[mid];
-		else if (mid == n - 1 && arr[mid] >= arr[mid - 1]) //if mid lies in last index
-			return arr[mid];
+		if (sum > max)
+			sum = arr[i] , student++;
+
+		if (student > k)
+			return false;
+
+	}
+	return true;
+}
 
 
-		else if (mid > 0 && arr[mid - 1] > arr[mid])
-			high = mid - 1;
+int BS_AllocateMinimumNumberPages(int max , int sum , int arr[] , int k, int n)
+{
+	int start = max , end = sum;
+	int res = -1;
+	while (start <= end)
+	{
+		int mid = start + (end - start) / 2;
+
+		if (isValid(mid, arr, k, n))
+			res = mid, end = mid - 1;
 
 		else
-			low = mid + 1;
+			start = mid + 1;
+
 	}
 
-	return -1;
-
+	return res;
 }
 
 
@@ -53,32 +58,41 @@ int main()
 	ios_base:: sync_with_stdio(false);
 	cin.tie(0);
 //////////////////////////////////////start...............
-	//  we have to find atleast  peak element in bitonnic aray ...
+	//  HERE THE FAMOUS PROBLEM -- ALLOCATING MINIMUM NUMBER OF MAXIMUM PAGES TO A STUDENT---
 
-	// same as peak array question i,e. the peak only one exist which is greater than the neighbours
+	/*	PROBLEM -
+		Here you have given books 'n' and
+	*/
 
 
 
 
 
-	int n, q;
+	int n;
 	cin >> n;
-	int  arr[n];
+
+	int arr[n];
+	int max = -1; //to keep maximum number of pages
+	int sum = 0; // to keep sumof pages
 
 	for (int i = 0; i < n; i++)
+	{
 		cin >> arr[i];
+		if (max < arr[i])
+			max = arr[i];
+		sum = sum + arr[i];
+	}
 
+	int k;
+	cin >> k;
 
-	int  num = binarySearchPeakElementBitonic (n, arr);
-
-	cout << "only peak element in Bitonic array is " << num << endl;
-
-
-
-
-
-
-
+	if (k > n)                //no. of students is more
+		cout << "Its impossible\n";
+	else
+	{
+		int i = BS_AllocateMinimumNumberPages(max, sum, arr, k, n);
+		cout << "the minimum  of maximum pages allocated to a student is " << i << endl;
+	}
 
 
 	return 0;
@@ -90,17 +104,3 @@ int main()
 
 }
 
-//c v a s selecting text or x for selecting cut
-//ctrl+d after selecting text to select same type
-//ctrl+shift+d for copy and paste the line below it
-//ctrl+del to delete a text
-//ctrl+left to jump left of line or vice versa
-//ctrl+shift+" / "  to comment whole block and vice versa for undo
-//ctrl+" / " for commenting a line
-
-/*
-when N <= 10, then both O(N!) and O(2N) are ok (for 2N probably N <= 20 is ok too)
-when N <= 100, then O(N3) is ok (I guess that N4 is also ok, but never tried)
-when N <= 1.000, then N2 is also ok
-when N <= 1.000.000, then O(N) is fine (I guess that 10.000.000 is fine too, but I never tried in contest)
-finally when N = 1.000.000.000 then O(N) is NOT ok, you have to find something better…*/

@@ -1,1 +1,1 @@
-only peak element in Bitonic array is 18
+the minimum  of maximum pages allocated to a student is 179
