@@ -20,33 +20,51 @@ int main()
 	ios_base:: sync_with_stdio(false);
 	cin.tie(0);
 //////////////////////////////////////start...............
-	int t;
-	cin >> t;
-	while (t--)
+	int n;
+	cin >> n;
+	string str1, str2;
+	cin >> str1 >> str2;
+	std::vector<char> v;
+	queue <char> q;
+
+
+	rep(i, 0, n)
+	v.pb(str1[i]);
+
+	rep(i, 0, n)
+	q.push(str2[i]);
+	int i; int flag = 1;
+	for (i = 0; i < n; i++)
 	{
-		int n;
-		cin >> n;
-		int arr[n];
+		flag = 1;
 
-		rep(i, 0, n)
-		cin >> arr[i];
-		int flag = 1;
-
-		rep(i, 0, n)
+		for (int j = 0; j < q.size(); j++)
 		{
-			if (arr[i] % 2 == 0)
+			char c = q.front();
+
+			if (str1[i] != c)
 			{
-				flag = 0; break;
+				q.pop();
+				q.push(c);
+			}
+			else
+			{
+				flag = 2;
+				q.pop();
+				break;
 
 			}
+
+
 		}
 
 		if (flag == 1)
-			cout << "YES" << endl;
-		else
-			cout << "NO" << endl;
+			break;
+
 
 	}
+
+	cout << q.size() << endl;
 
 ////////////////////////////////////////end-.........................
 #ifndef ONLINE_JUDGE

@@ -10,6 +10,39 @@ using namespace std;
 #define u_m  unordered_map        //hashing container
 
 
+
+int binarySearchPeakElementBitonic (int n, int arr[])
+{
+
+
+
+	int low = 0 , high = n - 1;
+
+	while (low <= high)
+	{
+
+		int mid = low + (high - low) / 2;
+		//returning mid ....
+		if ((mid > 0 && mid < n - 1) && (arr[mid] >= arr[mid + 1]  && arr[mid] >= arr[mid - 1])) //if mid lies between corners
+			return arr[mid];
+		else if (mid == 0 && arr[mid] >= arr[mid + 1]) //if mid lies if first index
+			return arr[mid];
+		else if (mid == n - 1 && arr[mid] >= arr[mid - 1]) //if mid lies in last index
+			return arr[mid];
+
+
+		else if (mid > 0 && arr[mid - 1] > arr[mid])
+			high = mid - 1;
+
+		else
+			low = mid + 1;
+	}
+
+	return -1;
+
+}
+
+
 int main()
 {
 #ifndef ONLINE_JUDGE
@@ -20,65 +53,25 @@ int main()
 	ios_base:: sync_with_stdio(false);
 	cin.tie(0);
 //////////////////////////////////////start...............
-	int r, c, q;
-	cin >> r >> c;
+	//  we have to find atleast  peak element in bitonnic aray ...
 
-	int mat[r][c];
-
-	rep(i, 0, r)
-	rep(j, 0, c)
-	cin >> mat[i][j];
-
-
-	cout << "Actual Matrix---->" << endl;
-
-	rep(i, 0, r)
-	{	rep(j, 0, c)
-		cout << mat[i][j] << " ";
-		E;
-	}
-
-	int prefixMat[r][c];
-	prefixMat[0][0] = mat[0][0];
-
-	rep(i, 1, c)
-	prefixMat[0][i] = mat[0][i] + prefixMat[0][i - 1]; // summing first row and first column as prefix 1d array
-
-	rep(i, 1, r)
-	prefixMat[i][0] = mat[i][0] + prefixMat[i - 1][0];
-
-
-	rep(i, 1, c)
-	rep(j, 1, c)
-	prefixMat[i][j] = ((prefixMat[i][j - 1] + prefixMat[i - 1][j] ) - prefixMat[i - 1][j - 1] ) + mat[i ][j ];
-
-	cout << "\n Prefix sum matrix" << endl;
-
-	rep(i, 0, r)
-	{
-		rep(j, 0, c)
-		cout << prefixMat[i][j] << " ";
-		E;
-	}
-	cin >> q;
-	cout << "\n\n\nProcessing queries\n";
-
-	while (q--)
-	{
-		int i1, j1, i2, j2;
-		cin >> i1 >> j1 >> i2 >> j2;
+	// same as peak array question i,e. the peak only one exist which is greater than the neighbours
 
 
 
 
-		cout << "\n from " << i1 << "," << j1 << " to " << i2 << "," << j2 << " is ";
+
+	int n, q;
+	cin >> n;
+	int  arr[n];
+
+	for (int i = 0; i < n; i++)
+		cin >> arr[i];
 
 
-		int sum = prefixMat[i2][j2] - prefixMat[i1 - 1][j2] - prefixMat[i2][j1 - 1] + prefixMat[i1 - 1][j1 - 1];
-		if (i1 == 0 && j1 == 0)
-			cout << prefixMat[i2][j2] << endl;
-		else
-			cout << sum << endl;
+	int  num = binarySearchPeakElementBitonic (n, arr);
+
+	cout << "only peak element in Bitonic array is " << num << endl;
 
 
 
@@ -88,23 +81,10 @@ int main()
 
 
 
-	}
-
-
-
-
-
-
-
-
-
-
-
-
-
+	return 0;
 ////////////////////////////////////////end-.........................
 #ifndef ONLINE_JUDGE
-	cout << "\n\n\n\nDone in " << (double) clock() / CLOCKS_PER_SEC << "sec" << endl;
+	//cout << "\n\n\n\nDone in " << (double) clock() / CLOCKS_PER_SEC << "sec" << endl;
 #endif
 	return 0;
 
