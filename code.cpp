@@ -9,8 +9,44 @@ using namespace std;
 #define MAX  1000002
 #define u_m  unordered_map        //hashing container
 
+//// Sqrt(n) complexity for finding the co prime with n upto n;
 
-int main()
+int eulerTotient(int n)
+{	int res = n;
+	int count = 0;
+	for (int i = 2; i * i <= n; i++)
+	{
+		if (n % i == 0)
+		{
+			res = res / i;
+			res = res * (i - 1);
+
+			while (n % i == 0)
+				n = n / i;
+
+			count++;
+
+		}
+
+
+
+
+	}
+
+	if (n > 1)
+		res = res / n , res = res * (n - 1), count++;
+
+	cout << "prime number that devides n are :" << count << endl;
+	return res;
+
+
+
+}
+
+
+
+
+int32_t main()
 {
 #ifndef ONLINE_JUDGE
 	clock_t tStart = clock();
@@ -22,53 +58,13 @@ int main()
 //////////////////////////////////////start...............
 	int n;
 	cin >> n;
-	string str1, str2;
-	cin >> str1 >> str2;
-	std::vector<char> v;
-	queue <char> q;
+	int k = eulerTotient(n);
+	cout << "no. of coprime with n are :" << k << endl;
 
 
-	rep(i, 0, n)
-	v.pb(str1[i]);
-
-	rep(i, 0, n)
-	q.push(str2[i]);
-	int i; int flag = 1;
-	for (i = 0; i < n; i++)
-	{
-		flag = 1;
-
-		for (int j = 0; j < q.size(); j++)
-		{
-			char c = q.front();
-
-			if (str1[i] != c)
-			{
-				q.pop();
-				q.push(c);
-			}
-			else
-			{
-				flag = 2;
-				q.pop();
-				break;
-
-			}
-
-
-		}
-
-		if (flag == 1)
-			break;
-
-
-	}
-
-	cout << q.size() << endl;
-
-////////////////////////////////////////end-.........................
+///////////////////////end-.........................
 #ifndef ONLINE_JUDGE
-	cout << "\nDone in " << (double) clock() / CLOCKS_PER_SEC << "sec" << endl;
+	//cout << "\nDone in " << (double) clock() / CLOCKS_PER_SEC << "sec" << endl;
 #endif
 	return 0;
 
