@@ -23,59 +23,34 @@ int32_t main()
 	ios_base:: sync_with_stdio(false);
 	cin.tie(0);
 //////////////////////////////////////start...............
-
-
-	ll q;
-	cin >> q;
-
-	while (q--)
-	{	ll n;
+	int t;
+	cin >> t;
+	while (t--)
+	{	int n, i;
 		cin >> n;
-
-		ll res = 0;
-		for (ll i = 1; i * i <= n; i++)
-		{
-			if (n % i == 0)
-			{
-				ll d1 = i , d2 = n / i;
-
-				res = res + d1;
-
-				if (d2 < n && d1 != d2)
-					res = res + d2 ;
-
-
-			}
-
+		int factors = 1, exponen = 0; //exponent stores power of current prime
+		while (n % 2 == 0) //a separate check for 2    	{
+		{	exponen++;
+			n = n / 2;
 		}
 
-
-
-
-		cout << res << endl;
-
+		factors = factors * (exponen + 1);
+		exponen = 0;
+		int original_n = n;
+		for (i = 3; n > 1 && i <= sqrt(original_n); i += 2) //Checking for every prime number
+		{
+			exponen = 0;
+			while (n % i == 0)
+			{
+				exponen++;
+				n = n / i;
+			}
+			factors = factors * (exponen + 1);
+		}
+		cout << factors << endl;
 
 
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 ////////////////////////////////////////end-.........................
 #ifndef ONLINE_JUDGE
