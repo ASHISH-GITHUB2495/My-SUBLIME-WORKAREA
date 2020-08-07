@@ -13,7 +13,13 @@ using namespace std;
 
 
 
-/// merging two sorted array without extra space;
+// merging two sorted array without extra space ;
+//GAP algorithm
+
+
+
+
+
 
 int32_t main()
 {
@@ -25,66 +31,56 @@ int32_t main()
 	ios_base:: sync_with_stdio(false);
 	cin.tie(0);
 //////////////////////////////////////start...............
-	int n, m;
-	cin >> n;
-	std::vector<int> nn(n);
-	rep(i, 0, n)
-	cin >> nn[i];
+	ll t;
+	cin >> t;
+	while (t--)
+	{	ll n;
+		cin >> n;
 
-	cin >> m;
-	std::vector<int> mm(m);
-	rep(i, 0, m)
-	cin >> mm[i];
+		vector <ll> vec(n);
 
 
-	int gap = ceil((n + m ) / 2);
-	while (gap >= 1)
-	{
-		int front = 0;
-		int back = front + gap;
-		int ff, bb;
 
-		while (back < n + m)
-		{	int f1 = 1 , f2 = 1;
-			ff = front; bb = back;
-			if (front >= n)
-				f1 = 2,  ff = front - n ;
-			if (back >= n)
-				f2 = 2,  bb = back - n ;
+		rep(i, 0, n)
+		cin >> vec[i];
 
-
-			if ((f1 == 1 && f2 == 1) && (nn[ff] > nn[bb]))
-				swap(nn[ff], nn[bb]);
-			else if ((f1 == 1 && f2 == 2) && (nn[ff] > mm[bb]))
-				swap(nn[ff], mm[bb]);
-			else if ((f1 == 2 && f2 == 2) && (mm[ff] > mm[bb]))
-				swap(mm[ff], mm[bb]);
-
-			front++; back++;
-
-
+		if (n == 1)
+		{
+			cout << "0" << endl;
+			continue;
 		}
 
+		sort(vec.begin(), vec.end());
+		ll low = vec[0] + vec[1];
 
-		gap = ceil(gap / 2);
+		ll high = vec[n - 1] + vec[n - 2];
+
+		ll maxx = -1;
+
+		for (ll i = low ; i <= high ; i++)
+		{
+			ll count = 0;
+			for (ll j = 0; j < n - 1; j++)
+			{
+				for (ll k = j + 1 ; k < n; k++)
+				{
+					cout << vec[j] << " " << vec[k] << endl;
+				}
+
+			}
+
+			//maxx = max(count, maxx);
+
+			cout << "===" << endl;
+
+		}
+		//cout << maxx << endl;
+		cout << "------------------" << endl;
+
 	}
-
-
-	rep(i, 0, n)
-	cout << nn[i] << " ";
-	E;
-	rep(i, 0, m)
-	cout << mm[i] << " ";
-	E;
-
-
-
-
-
-
 ///////////////////////end-.........................
 #ifndef ONLINE_JUDGE
-//cout << "\nDone in " << (double) clock() / CLOCKS_PER_SEC << "sec" << endl;
+	cout << "\nDone in " << (double) clock() / CLOCKS_PER_SEC << "sec" << endl;
 #endif
 	return 0;
 

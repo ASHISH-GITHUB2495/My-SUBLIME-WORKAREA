@@ -23,34 +23,57 @@ int32_t main()
 	ios_base:: sync_with_stdio(false);
 	cin.tie(0);
 //////////////////////////////////////start...............
-	int t;
-	cin >> t;
-	while (t--)
-	{	int n, i;
-		cin >> n;
-		int factors = 1, exponen = 0; //exponent stores power of current prime
-		while (n % 2 == 0) //a separate check for 2    	{
-		{	exponen++;
-			n = n / 2;
-		}
 
-		factors = factors * (exponen + 1);
-		exponen = 0;
-		int original_n = n;
-		for (i = 3; n > 1 && i <= sqrt(original_n); i += 2) //Checking for every prime number
-		{
-			exponen = 0;
-			while (n % i == 0)
-			{
-				exponen++;
-				n = n / i;
-			}
-			factors = factors * (exponen + 1);
-		}
-		cout << factors << endl;
+// Actually this programm is for finding the merge overlapping intervals
+	// here we gonna do with time complexity O(nlogn + n)
 
+	// this programm is wrote by me if you want to make it efficient than
+	// go ahead;
+
+
+
+	int n;
+	cout << "Enter no. of paired element\n";
+	cin >> n;
+	cout << "Enter element pair wise\n";
+	vector<pair<int, int>> v;
+	for (int i = 0; i < n; i++)
+	{
+		int x, y;
+		cin >> x >> y;
+		v.pb({x, y});
 
 	}
+
+	sort(v.begin(), v.end());
+
+	vector<pair<int, int>> res;
+	pair <int, int> p;
+	int flag = 1;
+
+	for (auto i : v)
+	{
+		if (flag == 1)
+		{
+			p = make_pair(i.first, i.second);
+			flag = 2;
+
+		}
+
+		if (i.first >= p.first && i.first <= p.second)
+			p.second = max(p.second, i.second);
+		else
+			res.pb(p) , p = make_pair(i.first, i.second);
+
+	}
+
+	res.pb(p);
+	cout << "After merging the overlapping ones\n";
+
+	for (auto i : res)
+		cout << i.first << " " << i.second << endl;
+
+
 
 ////////////////////////////////////////end-.........................
 #ifndef ONLINE_JUDGE
