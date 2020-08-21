@@ -1,4 +1,5 @@
 #include<bits/stdc++.h>
+#include<stdlib.h>
 using namespace std;
 
 #define pb push_back
@@ -7,9 +8,8 @@ using namespace std;
 #define rep(i,k,n) for(ll i=k;i<n;i++)
 #define E cout<<endl
 #define MAX  1000002
-#define u_m  unordered_map        //hashing container
-
-
+#define u_m  unordered_map
+#define bbit bitset <64>
 
 
 
@@ -23,61 +23,66 @@ int32_t main()
 	ios_base:: sync_with_stdio(false);
 	cin.tie(0);
 //////////////////////////////////////start...............
+	/* this program , as you have given n * m matrix , you have to make a row and column to zero if any elem foud to zero at their */
 
-// Actually this programm is for finding the merge overlapping intervals
-	// here we gonna do with time complexity O(nlogn + n)
+//APPROACH 1...
 
-	// this programm is wrote by me if you want to make it efficient than
-	// go ahead;
+	int n, m;
+	cin >> n >> m;
+
+	int arr[n][m];
+	int col = 1;
 
 
 
-	int n;
-	cout << "Enter no. of paired element\n";
-	cin >> n;
-	cout << "Enter element pair wise\n";
-	vector<pair<int, int>> v;
+	for (int i = 0; i < n; i++)
+		for (int j = 0; j < m; j++)
+			cin >> arr[i][j];
+
+
+
 	for (int i = 0; i < n; i++)
 	{
-		int x, y;
-		cin >> x >> y;
-		v.pb({x, y});
+		if (arr[i][0] == 0)
+			col = 0;
 
+		for (int j = 1; j < m; j++)
+		{
+			if (arr[i][j] == 0)
+			{
+				arr[0][j] = 0;
+				arr[i][0] = 0;
+
+			}
+		}
 	}
 
-	sort(v.begin(), v.end());
 
-	vector<pair<int, int>> res;
-	pair <int, int> p;
-	int flag = 1;
 
-	for (auto i : v)
+	for (int i = n - 1; i >= 0 ; i--)
 	{
-		if (flag == 1)
+		for (int j = m - 1; j >= 0; j--)
 		{
-			p = make_pair(i.first, i.second);
-			flag = 2;
+			if (arr[0][j] == 0 || arr[i][0] == 0)
+				arr[i][j] = 0;
+		}
+		if (col == 0) arr[i][0] = 0;
+	}
+
+	for (int i = 0; i < n; i++)
+	{
+		for (int j = 0; j < m; j++)
+		{
+			cout << arr[i][j] << " ";
 
 		}
-
-		if (i.first >= p.first && i.first <= p.second)
-			p.second = max(p.second, i.second);
-		else
-			res.pb(p) , p = make_pair(i.first, i.second);
-
+		cout << "\n";
 	}
 
-	res.pb(p);
-	cout << "After merging the overlapping ones\n";
 
-	for (auto i : res)
-		cout << i.first << " " << i.second << endl;
-
-
-
-////////////////////////////////////////end-.........................
+///////////////////////end-.........................
 #ifndef ONLINE_JUDGE
-	//cout << "\nDone in " << (double) clock() / CLOCKS_PER_SEC << "sec" << endl;
+	cout << "\nDone in " << (double) clock() / CLOCKS_PER_SEC << "sec" << endl;
 #endif
 	return 0;
 
@@ -97,3 +102,10 @@ when N <= 100, then O(N3) is ok (I guess that N4 is also ok, but never tried)
 when N <= 1.000, then N2 is also ok
 when N <= 1.000.000, then O(N) is fine (I guess that 10.000.000 is fine too, but I never tried in contest)
 finally when N = 1.000.000.000 then O(N) is NOT ok, you have to find something better…*/
+// to sort string decending (); but with vec.rbegin()  and vec.rend();
+// NOT WORKING SOMETIME IN ONLINE JUDGE
+
+// itoa (int , char* str , int base);
+//atoi convert string to int;
+//atol convert string to long;
+//

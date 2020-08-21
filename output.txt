@@ -1,4 +1,1 @@
-Enter no. of paired element
-Enter element pair wise
-After merging the overlapping ones
-1 5
+2 1 3 
