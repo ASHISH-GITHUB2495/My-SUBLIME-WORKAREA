@@ -11,20 +11,66 @@ using namespace std;
 #define u_m  unordered_map
 #define bbit bitset <64>
 
-void swap(vector<int>& v , int i, int j)
+
+
+
+
+ll merge(ll arr[], ll temp[], ll left, ll mid, ll right)
 {
-	int temp = v[i];
-	v[i] = v[j];
-	v[j] = temp;
-	return ;
+	ll i, j, k; ll inv_count = 0;
+
+	i = left;
+	j = mid;
+	k = left;
+
+	while ((i <= mid - 1) && (j <= right))
+	{
+		if (arr[i] <= arr[j])
+			temp[k++] = arr[i++];
+		else
+		{
+			temp[k++] = arr[j++];
+			inv_count += (mid - i);
+
+
+		}
+
+	}
+
+	while (i <= mid - 1)
+		temp[k++] = arr[i++];
+	while (j <= right)
+		temp[k++] = arr[j++];
+
+	for (ll i = left; i <= right; i++)
+		arr[i] = temp[i];
+
+
+	return inv_count;
+
 
 }
 
-void reverse(vector<int> & v, int i, int j)
+ll mergeSort(ll arr[], ll temp[], ll low , ll high)
 {
-	while (i < j)
-		swap(v, i++, j--);
+	ll count = 0; ll mid;
+	if (high > low)
+	{
+		mid = (low + high) / 2;
+
+		count += mergeSort(arr, temp , low, mid);
+		count += mergeSort(arr, temp, mid + 1, high);
+
+		count += merge(arr, temp, low, mid + 1, high);
+	}
+	return count;
+
+
 }
+
+
+
+
 int32_t main()
 {
 #ifndef ONLINE_JUDGE
@@ -36,68 +82,30 @@ int32_t main()
 	cin.tie(0);
 //////////////////////////////////////start...............
 
-//Here we are going to find the next permutation which is just greater than the number;
-	//first interview approach we are going to use the stl library .
-
-	vector<int> v;
-	int n;
-	cin >> n;
-
-	while (n != 0)
+	ll t;
+	cin >> t;
+	while (t--)
 	{
-		v.pb(n % 10);
-		n /= 10;
+		ll n;
+		cin >> n;
+		ll arr[n];
+		for (ll i = 0; i < n; i++)
+			cin >> arr[i];
+		ll temp[n];
+		cout << mergeSort(arr, temp, 0, n - 1) << endl;
 	}
-
-	reverse(v.begin(), v.end());
-	//Striver_79 approach
-	int i = v.size() - 2;
-	while (i >= 0 && v[i] >= v[i + 1])i--;
-	if (i >= 0)
-	{
-		int j = v.size() - 1;
-		while (v[j] < v[i]) j--;
-
-		swap(v, i, j);
-
-	}
-	reverse(v, i + 1, v.size() - 1);
-
-	for (int i = 0; i < v.size(); i++)
-		cout << v[i] << " ";
-	E;
-
-
 
 
 
 ///////////////////////end-.........................
 #ifndef ONLINE_JUDGE
-	//cout << "\nDone in " << (double) clock() / CLOCKS_PER_SEC << "sec" << endl;
+	cout << "\nDone in " << (double) clock() / CLOCKS_PER_SEC << "sec" << endl;
 #endif
 	return 0;
 
 }
 
-/*
-class Solution {
-public:
-    vector<vector<int>> generate(int numRows)
-    {
-        vector<vector<int>> r(numRows);
-        for(int i=0;i<numRows;i++)
-        {
-            r[i].resize(i+1);
-            r[i][0]= r[i][i]=1;
 
-            for(int j=1;j<i;j++)
-                r[i][j]=r[i-1][j-1]+r[i-1][j];
-
-
-        }
-        return r;
-    }
-};*/
 
 //c v a s selecting text or x for selecting cut
 //ctrl+d after selecting text to select same type
