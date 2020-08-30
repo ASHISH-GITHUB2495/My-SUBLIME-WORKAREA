@@ -1,97 +1,69 @@
-#include<bits/stdc++.h>
-#include<stdlib.h>
+#include<iostream>
+#include<string>
+#include<sstream>
 using namespace std;
-
-#define u_m  unordered_map
-
-
-
-
-
-
-
-int countInY(int x, int Y[], u_m <int, int> u , int m)
-{
-
-
-
-	if (x == 0) return 0;
-	if (x == 1) return u[0];
-
-	int* idx = upper_bound(Y, Y + m, x);
-	int ans = (Y + m ) - idx;
-
-	ans += (u[0] + u[1]);
-
-	if (x == 2) ans -= (u[3] + u[4]);
-	if (x == 3) ans += u[2];
-
-
-
-
-	return ans;
-
-
-}
-
-
-
-
-
-
-int countPairs(int X[], int Y[], int n, int m)
-{
-	u_m <int, int> u;
-	for (int i = 0; i < m; i++)
-		if (Y[i] < 5)
-			u[Y[i]]++;
-
-	int count = 0;
-	sort(Y, Y + m);
-
-	for (int i = 0; i < n; i++)
-		count += countInY(X[i], Y, u, m);
-
-
-	return count;
-
-
-}
-
-
-
 
 
 
 int32_t main()
 {
 
-	ios_base:: sync_with_stdio(false);
-	cin.tie(0);
-
+//////////////////////////////////////start...............
+//Here we gonna make progrmm for getting element with occourc more than n/2 of array
+	//approach 3 moors voting algorithm O(n)  SC-O(1)
 
 	int t;
 	cin >> t;
 	while (t--)
-	{
-		int n, m;
-		cin >> n >> m;
-
-		int X[n];
-		int Y[m];
-
+	{	string b;
+		int n;
+		int arr[n];
 		for (int i = 0; i < n; i++)
-			cin >> X[i];
-		for (int i = 0; i < m; i++)
-			cin >> Y[i];
+			cin >> arr[i];
 
-		cout << countPairs(X, Y, n, m) << endl;
+		for (int k = 0; k < n - 1; k++)
+		{
+			// int i = k , j = i + 1;
+
+			// while (i < n && j < n)
+			// {
+			// 	string a = to_string(arr[i]);
+			// 	string b = to_string(arr[j]);
+
+			// 	if (a + b > b + a)
+			// 	{
+			// 		j++;
+			// 	}
+			// 	else
+			// 	{
+			// 		swap(arr[i], arr[j]);
+			// 		j++;
+			// 	}
+
+
+			// }
+			ostringstream a;
+			a << arr[k];
+
+
+			b += a.str();
+
+
+		}
+		cout << b << endl;
+		for (int i = 0; i < n; i++)
+			cout << arr[i] << " ";
+		cout << endl;
+
+
+
+
+
 	}
-
-
-
 
 	return 0;
 
 }
+
+
 

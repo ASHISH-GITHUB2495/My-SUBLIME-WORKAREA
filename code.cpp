@@ -1,5 +1,6 @@
 #include<bits/stdc++.h>
-#include<stdlib.h>
+#include<string>
+
 using namespace std;
 
 #define pb push_back
@@ -10,65 +11,6 @@ using namespace std;
 #define MAX  1000002
 #define u_m  unordered_map
 #define bbit bitset <64>
-
-
-
-
-
-ll merge(ll arr[], ll temp[], ll left, ll mid, ll right)
-{
-	ll i, j, k; ll inv_count = 0;
-
-	i = left;
-	j = mid;
-	k = left;
-
-	while ((i <= mid - 1) && (j <= right))
-	{
-		if (arr[i] <= arr[j])
-			temp[k++] = arr[i++];
-		else
-		{
-			temp[k++] = arr[j++];
-			inv_count += (mid - i);
-
-
-		}
-
-	}
-
-	while (i <= mid - 1)
-		temp[k++] = arr[i++];
-	while (j <= right)
-		temp[k++] = arr[j++];
-
-	for (ll i = left; i <= right; i++)
-		arr[i] = temp[i];
-
-
-	return inv_count;
-
-
-}
-
-ll mergeSort(ll arr[], ll temp[], ll low , ll high)
-{
-	ll count = 0; ll mid;
-	if (high > low)
-	{
-		mid = (low + high) / 2;
-
-		count += mergeSort(arr, temp , low, mid);
-		count += mergeSort(arr, temp, mid + 1, high);
-
-		count += merge(arr, temp, low, mid + 1, high);
-	}
-	return count;
-
-
-}
-
-
 
 
 int32_t main()
@@ -82,18 +24,37 @@ int32_t main()
 	cin.tie(0);
 //////////////////////////////////////start...............
 
-	ll t;
+
+
+	int t;
 	cin >> t;
+
 	while (t--)
-	{
-		ll n;
-		cin >> n;
-		ll arr[n];
-		for (ll i = 0; i < n; i++)
-			cin >> arr[i];
-		ll temp[n];
-		cout << mergeSort(arr, temp, 0, n - 1) << endl;
+	{	int cnt = 0;
+
+		int a, b;
+		cin >> a >> b;
+		int n = a ^ b;
+		while ( a || b)
+		{
+			int f1 = 0 , f2 = 0;
+			if (a & 1)
+				f1 = 1;
+			if (b & 1)
+				f2 = 1;
+			if (f1 != f2)
+				cnt++;
+
+			a = a >> 1;
+			b = b >> 1;
+		}
+
+		cout << cnt << endl;
+
 	}
+
+
+
 
 
 
