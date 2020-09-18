@@ -1,69 +1,107 @@
-#include<iostream>
-#include<string>
-#include<sstream>
+// C++ program to find smallest window containing
+// all characters of a pattern.
+#include<bits/stdc++.h>
 using namespace std;
 
+const int no_of_chars = 256;
 
-
-int32_t main()
+// Function to find smallest window containing
+// all characters of 'pat'
+string findSubString(string str, string pat)
 {
+	int len1 = str.length();
+	int len2 = pat.length();
 
-//////////////////////////////////////start...............
-//Here we gonna make progrmm for getting element with occourc more than n/2 of array
-	//approach 3 moors voting algorithm O(n)  SC-O(1)
-
-	int t;
-	cin >> t;
-	while (t--)
-	{	string b;
-		int n;
-		int arr[n];
-		for (int i = 0; i < n; i++)
-			cin >> arr[i];
-
-		for (int k = 0; k < n - 1; k++)
-		{
-			// int i = k , j = i + 1;
-
-			// while (i < n && j < n)
-			// {
-			// 	string a = to_string(arr[i]);
-			// 	string b = to_string(arr[j]);
-
-			// 	if (a + b > b + a)
-			// 	{
-			// 		j++;
-			// 	}
-			// 	else
-			// 	{
-			// 		swap(arr[i], arr[j]);
-			// 		j++;
-			// 	}
-
-
-			// }
-			ostringstream a;
-			a << arr[k];
-
-
-			b += a.str();
-
-
-		}
-		cout << b << endl;
-		for (int i = 0; i < n; i++)
-			cout << arr[i] << " ";
-		cout << endl;
-
-
-
-
-
+	// check if string's length is less than pattern's
+	// length. If yes then no such window can exist
+	if (len1 < len2)
+	{
+		cout << "No such window exists";
+		return "";
 	}
 
-	return 0;
+	int hash_pat[no_of_chars] = {0};
+	int hash_str[no_of_chars] = {0};
 
+	// store occurrence ofs characters of pattern
+	for (int i = 0; i < len2; i++)
+		hash_pat[pat[i]]++;
+
+	int start = 0, start_index = -1, min_len = INT_MAX;
+
+	// start traversing the string
+	int count = 0; // count of characters
+	for (int j = 0; j < len1 ; j++)
+	{
+		// count occurrence of characters of string
+		hash_str[str[j]]++;
+
+		// If string's char matches with pattern's char
+		// then increment count
+		if (hash_pat[str[j]] != 0 &&
+		        hash_str[str[j]] <= hash_pat[str[j]] )
+			count++;
+
+		// if all the characters are matched
+		if (count == len2)
+		{
+			// Try to minimize the window i.e., check if
+			// any character is occurring more no. of times
+			// than its occurrence in pattern, if yes
+			// then remove it from starting and also remove
+			// the useless characters.
+			while ( hash_str[str[start]] > hash_pat[str[start]]
+			        || hash_pat[str[start]] == 0)
+			{
+
+				if (hash_str[str[start]] > hash_pat[str[start]])
+					hash_str[str[start]]--;
+				start++;
+			}
+
+			// update window size
+			int len_window = j - start + 1;
+			if (min_len > len_window)
+			{
+				min_len = len_window;
+				start_index = start;
+			}
+		}
+	}
+
+	// If no window found
+	if (start_index == -1)
+	{
+		cout << "No such window exists";
+		return "";
+	}
+	cout << start_index << " " << start << endl;
+	// Return substring starting from start_index
+	// and length min_len
+	return str.substr(start_index, min_len);
 }
 
+// Driver code
+int main()
+{
+#ifndef ONLINE_JUDGE
+	clock_t tStart = clock();
+	freopen("input.txt", "r", stdin);
+	freopen("output.txt", "w", stdout);
+#endif
 
 
+	string str = "timetopractice";
+
+
+	string pat = "toc";
+
+	cout << "Smallest window is : \n"
+	     << findSubString(str, pat);
+
+
+#ifndef ONLINE_JUDGE
+	cout << "\nDone in " << (double) clock() / CLOCKS_PER_SEC << "sec" << endl;
+#endif
+	return 0;
+}

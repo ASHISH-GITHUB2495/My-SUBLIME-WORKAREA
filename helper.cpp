@@ -1,5 +1,6 @@
 #include<bits/stdc++.h>
 #include<string>
+
 using namespace std;
 
 #define pb push_back
@@ -10,63 +11,8 @@ using namespace std;
 #define MAX  1000002
 #define u_m  unordered_map
 #define bbit bitset <64>
+#define INT_BITS 16
 
-
-string convert(int num)
-{
-
-
-	int len;
-	if (num < 10)
-		len = 1;
-	else if (num < 100)
-		len = 2;
-	else
-		len = 3;
-
-
-
-	string single[10] = { "zero", "one", "two",
-	                      "three", "four", "five",
-	                      "six", "seven", "eight", "nine"
-	                    };
-
-
-
-	string two_digits[] = {"", "ten", "eleven", "twelve",
-	                       "thirteen", "fourteen",
-	                       "fifteen", "sixteen",
-	                       "seventeen", "eighteen", "nineteen"
-	                      };
-
-	string tens_multiple[] = {"", "", "twenty", "thirty", "forty", "fifty",
-	                          "sixty", "seventy", "eighty", "ninety"
-	                         };
-
-	string tens_power[] = {"hundred", "thousand"};
-
-	if (len == 1)
-		return single[num];
-
-	//string str = to_string(num);
-
-	if (len == 2 && num < 20)
-	{
-		return two_digits[num - 9];
-	}
-	else if (len == 2 && num >= 20)
-	{
-		if (num % 10 == 0)
-			return tens_multiple[(num / 10)];
-		else
-			return tens_multiple[(num / 10)] + single[num % 10];
-	}
-	else
-		return "hundred";
-
-
-
-}
 
 
 int32_t main()
@@ -79,45 +25,84 @@ int32_t main()
 	ios_base:: sync_with_stdio(false);
 	cin.tie(0);
 //////////////////////////////////////start...............
-	int n ;
-	cin >> n;
-	int arr[n];
-	for (int i = 0; i < n; i++)
-		cin >> arr[i];
-
-	int count = 0;
-	for (int i = 0; i < n; i++)
+	int t;
+	cin >> t;
+	while (t--)
 	{
-		string str = convert(arr[i]);
+		int n;
+		cin >> n;
+		int arr[n];
+		for (int i = 0; i < n; i++)
+			cin >> arr[i];
 
-		for (int i = 0; i < (int)str.size(); i++)
-			if (str[i] == 'a' || str[i] == 'e' || str[i] == 'i' || str[i] == 'o' || str[i] == 'u')
-				count++;
-		//cout << str << " " << count << endl;
+
+		if (n == 0 || n == 1)
+		{
+			cout << n << " " << n << endl;
+			continue;
+		}
+
+		int minn = INT_MAX , maxx = INT_MIN;
+		for (int i = 0; i < n; i++)
+		{
+
+			vector <bool> v(n, false);
+			vector <int> dist(n, 0);
+			v[i] = true;
+
+			for (int t = 1; t <= 1000; t++)
+			{
+				for (int j = 0; j < n; j++)
+					dist[j] = (j + 1) + (arr[j] * t) ;
+
+
+
+				set<int> infectedDist;
+
+				for (int j = 0; j < n; j++)
+					if (v[j])
+						infectedDist.insert(dist[j]);
+
+
+				for (int j = 0; j < n; j++)
+				{
+
+					if (v[j])
+						continue;
+					else if (infectedDist.count(dist[j]))
+						v[j] = 1;
+				}
+
+
+				//infectedDist.clear();
+			}
+
+			int cnt = 0;
+			for (int j = 0; j < n; j++)
+				if (v[j])
+					cnt++;
+
+
+			minn = min(minn, cnt);
+			maxx = max(maxx, cnt);
+
+		}
+
+
+		cout << minn << " " << maxx << endl;
+
+
 	}
-	int num = count;
 
-
-
-
-
-	count = 0;
-
-	for (int i = n - 1; i > 0; i--)
-	{
-		for (int j = i - 1; j >= 0; j--)
-			if (arr[i] + arr[j] == num)
-				count++;
-	}
-
-	cout << convert(count) << endl;
 ///////////////////////end-.........................
 #ifndef ONLINE_JUDGE
-	//cout << "\nDone in " << (double) clock() / CLOCKS_PER_SEC << "sec" << endl;
+	cout << "\nDone in " << (double) clock() / CLOCKS_PER_SEC << "sec" << endl;
 #endif
 	return 0;
 
 }
+
+
 
 //c v a s selecting text or x for selecting cut
 //ctrl+d after selecting text to select same type
@@ -136,7 +121,7 @@ finally when N = 1.000.000.000 then O(N) is NOT ok, you have to find something b
 // to sort string decending (); but with vec.rbegin()  and vec.rend();
 // NOT WORKING SOMETIME IN ONLINE JUDGE
 
-// itoa (int , char* str , int base);
+// itoa (int, char* str , int base);
 //atoi convert string to int;
 //atol convert string to long;
 //

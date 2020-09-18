@@ -11,6 +11,7 @@ using namespace std;
 #define MAX  1000002
 #define u_m  unordered_map
 #define bbit bitset <64>
+#define INT_BITS 16
 
 
 int32_t main()
@@ -24,34 +25,6 @@ int32_t main()
 	cin.tie(0);
 //////////////////////////////////////start...............
 
-
-
-	int t;
-	cin >> t;
-
-	while (t--)
-	{	int cnt = 0;
-
-		int a, b;
-		cin >> a >> b;
-		int n = a ^ b;
-		while ( a || b)
-		{
-			int f1 = 0 , f2 = 0;
-			if (a & 1)
-				f1 = 1;
-			if (b & 1)
-				f2 = 1;
-			if (f1 != f2)
-				cnt++;
-
-			a = a >> 1;
-			b = b >> 1;
-		}
-
-		cout << cnt << endl;
-
-	}
 
 
 
@@ -85,7 +58,7 @@ finally when N = 1.000.000.000 then O(N) is NOT ok, you have to find something b
 // to sort string decending (); but with vec.rbegin()  and vec.rend();
 // NOT WORKING SOMETIME IN ONLINE JUDGE
 
-// itoa (int , char* str , int base);
+// itoa (int, char* str , int base);
 //atoi convert string to int;
 //atol convert string to long;
 //
