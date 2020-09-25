@@ -34,9 +34,10 @@ int main()
 	// ALSO INCLUDES "UNORDERED_MAP" WHICH IS VERY USEFUL
 	// LATER I WILL ADD OTHERTHINGS AS I WILL BE LEARNING , WHICH YOU WILL MUST NEED .
 	// THANK YOU BYE. UMMAH
+	int n;
+	cin >> n;
 
-
-
+	cout << n << endl;
 
 
 
