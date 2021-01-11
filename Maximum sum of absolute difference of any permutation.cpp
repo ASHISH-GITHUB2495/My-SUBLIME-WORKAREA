@@ -1,5 +1,5 @@
 #include<bits/stdc++.h>
-
+#include<string>
 
 using namespace std;
 
@@ -13,7 +13,25 @@ using namespace std;
 #define bbit bitset <64>
 #define INT_BITS 16
 
-
+//Maximum sum of absolute difference of any permutation
+/*
+Example
+Input : { 1, 2, 4, 8 }
+Output : 18
+Explanation : For the given array there are
+several sequence possible
+like : {2, 1, 4, 8}
+       {4, 2, 1, 8} and some more.
+Now, the absolute difference of an array sequence will be
+like for this array sequence {1, 2, 4, 8}, the absolute
+difference sum is
+= |1-2| + |2-4| + |4-8| + |8-1|
+= 14
+For the given array, we get the maximum value for
+the sequence {1, 8, 2, 4}
+= |1-8| + |8-2| + |2-4| + |4-1|
+= 18
+*/
 
 int32_t main()
 {
@@ -25,16 +43,36 @@ int32_t main()
 	ios_base:: sync_with_stdio(false);
 	cin.tie(0);
 //////////////////////////////////////start...............
-	int t;
-	cin >> t;
-	while (t--) {
-		int n, k;
-		cin >> n >> k;
 
-		cout << n <<" "<<k << endl;
+	int n;
+
+	cout << "Enter no. of elements \n";
+	cin >> n;
+	vector<int> arr(n);
+	cout << "Enter elements\n";
+	for (int i = 0; i < n; i++)
+		cin >> arr[i];
 
 
+	sort(arr.begin(), arr.end());
+
+	for (int i = 1; i < n ; i += 1)
+	{
+		swap(arr[i], arr[n - 1]);
 	}
+	if (n % 2 == 1)
+		swap(arr[n - 1], arr[n - 2]);
+
+	int sum = 0;
+
+	for (int i = 0; i < n - 1; i++)
+		sum += abs(arr[i] - arr[i + 1]);
+
+	sum += abs(arr[n - 1] - arr[0]);
+
+	cout << "Required sum: " << sum << endl;
+
+
 ///////////////////////end-.........................
 #ifndef ONLINE_JUDGE
 	cout << "\nDone in " << (double) clock() / CLOCKS_PER_SEC << "sec" << endl;
@@ -62,7 +100,7 @@ finally when N = 1.000.000.000 then O(N) is NOT ok, you have to find something b
 // to sort string decending (); but with vec.rbegin()  and vec.rend();
 // NOT WORKING SOMETIME IN ONLINE JUDGE
 
-// itoa (ll, char* str , int base);
+// itoa (int, char* str , int base);
 //atoi convert string to int;
-//atol convert string to ;
+//atol convert string to long;
 //

@@ -1,5 +1,5 @@
 #include<bits/stdc++.h>
-
+#include<string>
 
 using namespace std;
 
@@ -12,7 +12,6 @@ using namespace std;
 #define u_m  unordered_map
 #define bbit bitset <64>
 #define INT_BITS 16
-
 
 
 int32_t main()
@@ -28,13 +27,34 @@ int32_t main()
 	int t;
 	cin >> t;
 	while (t--) {
-		int n, k;
-		cin >> n >> k;
+		int n;
 
-		cout << n <<" "<<k << endl;
+		cout << "Enter no. of mouse&holes \n";
+		cin >> n;
+		vector<int> mouse(n);
+		vector<int> hole(n);
+		cout << "Enter mouse positions\n";
+		for (int i = 0; i < n; i++)
+			cin >> mouse[i];
+		for (int i = 0; i < n; i++)
+			cin >> hole[i];
+
+		sort(mouse.begin(), mouse.end());
+		sort(hole.begin(), hole.end());
+
+		int minn = -1;
+		for (int i = 0; i < n; i++)
+		{	if (minn <= abs(mouse[i] - hole[i]))
+				minn = abs(mouse[i] - hole[i]);
+		}
+
+
+		cout << "min distance of last mouse is " << minn << endl;
 
 
 	}
+
+
 ///////////////////////end-.........................
 #ifndef ONLINE_JUDGE
 	cout << "\nDone in " << (double) clock() / CLOCKS_PER_SEC << "sec" << endl;
@@ -62,7 +82,7 @@ finally when N = 1.000.000.000 then O(N) is NOT ok, you have to find something b
 // to sort string decending (); but with vec.rbegin()  and vec.rend();
 // NOT WORKING SOMETIME IN ONLINE JUDGE
 
-// itoa (ll, char* str , int base);
+// itoa (int, char* str , int base);
 //atoi convert string to int;
-//atol convert string to ;
+//atol convert string to long;
 //

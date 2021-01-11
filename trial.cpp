@@ -1,5 +1,5 @@
 #include<bits/stdc++.h>
-#include<string>
+
 
 using namespace std;
 
@@ -12,81 +12,41 @@ using namespace std;
 #define u_m  unordered_map
 #define bbit bitset <64>
 #define INT_BITS 16
-/*
-Job Sequencing Problem
-Last Updated: 04-11-2020
 
-Given an array of jobs where every job has a deadline and associated profit if the job is finished before the deadline. It is also given that every job takes the single unit of time, so the minimum possible deadline for any job is 1. How to maximize total profit if only one job can be scheduled at a time.
+pair<  ll ,   ll > reflect (  ll  x,   ll  y,   ll  sphere, ll n)
+{
+	if (y == n)
+	{
+		if (sphere == 0)
+			return {0, n - x};
+		else
+			return {y, x};
 
-Examples:
-
-Input: Four Jobs with following
-deadlines and profits
-JobID  Deadline  Profit
-  a      4        20
-  b      1        10
-  c      1        40
-  d      1        30
-Output: Following is maximum
-profit sequence of jobs
-        c, a
-
-
-Input:  Five Jobs with following
-deadlines and profits
-JobID   Deadline  Profit
-  a       2        100
-  b       1        19
-  c       2        27
-  d       1        25
-  e       3        15
-Output: Following is maximum
-profit sequence of jobs
-        c, a, e
-*/
-/*RULE:---
-  1.It is in the form of nr/dr .. then find the ceiling of dr/nr;
-  then recur it .
-
-*/
-
-struct Job
-{	char id;
-	int deadline;
-	int profit;
-
-};
-
-bool compare(Job a , Job b) {
-	return (a.profit > b.profit);
-}
-
-void printJobScheduling(Job arr[], int n) {
-	int jobSlot[n];
-	fill(jobSlot, jobSlot + n, 0);
-	sort(arr, arr + n, compare);
-	int result[n];
-
-	for (int i = 0; i < n; i++) {
-
-		for (int j = min(n, arr[i].deadline) - 1; j >= 0; j--)
-		{
-			if (jobSlot[j] == 0) {
-				result[j] = i;
-				jobSlot[j] = true;
-				break;
-			}
-		}
 	}
+	else if (x == n)
+	{
+		if (sphere == 0)
+			return {y, x};
+		else
+			return {n - y, 0};
+	}
+	else if (y == 0)
+	{
+		if (sphere == 0)
+			return {n, n - x};
+		else
+			return {y, x};
+	}
+	else
+	{
+		if (sphere == 0)
+			return {y, x};
+		else
+			return {n - y, n};
 
-
-	for (int i = 0; i < n; i++)
-		if (jobSlot[i])
-			cout << arr[result[i]].id << " ";
-
-
-
+	}
 }
+
 int32_t main()
 {
 #ifndef ONLINE_JUDGE
@@ -97,20 +57,75 @@ int32_t main()
 	ios_base:: sync_with_stdio(false);
 	cin.tie(0);
 //////////////////////////////////////start...............
-	int n;
-	cout << "Enter no. of Jobs \n";
-	cin >> n;
+	int t;
+	cin >> t;
+	while (t--) {
+		int n, k;
+		cin >> n >> k;
 
-	Job arr[n];
-	for (int i = 0; i < n; i++) {
-		cout << "Enter job id, deadline, profit of job no. " << i + 1 << endl;
-		cin >> arr[i].id >> arr[i].deadline >> arr[i].profit;
+		std::vector<int> v(n);
+
+		for (int i = 0; i < n; i++)
+			cin >> v[i];
+		sort(v.begin(), v.end(), greater<int>());
+
+
+
+
+		int sum1 = 0 , sum2 = 0 , cnt1 = 0 , cnt2 = 0 , f1 = 0 , f2 = 0;
+
+		for (int i = 0; i < n && (sum1 < k || sum2 < k); i++)
+		{
+			if (i % 2 == 0) {
+				if ( sum1 < k)
+					sum1 += v[i] , cnt1++;
+				else if (sum2 < k)
+					sum2 += v[i] , cnt1++;
+
+			}
+			else if (i % 2 == 1)
+			{	if (sum2 < k)
+					sum2 += v[i] , cnt1++;
+				else if (sum1 < k)
+					sum1 += v[i] , cnt1++;
+			}
+		}
+
+		if (sum1 >= k && sum2 >= k)
+			f1 = 1;
+
+
+
+		sum1 = 0, sum2 = 0;
+
+		for (int i = 0; i < n; i++) {
+			if (sum1 < k) {
+				sum1 += v[i];
+				cnt2++;
+			}
+			else if (sum2 < k)
+			{
+				sum2 += v[i];
+				cnt2++;
+			}
+			else
+				break;
+		}
+
+
+
+		if (sum1 >= k && sum2 >= k)
+			f2 = 1;
+
+
+		if (f1 == 1 && f2 == 1)
+			cout << min(cnt1, cnt2) << endl;
+		else
+			cout << "-1" << endl;
+
+
 
 	}
-
-	printJobScheduling(arr, n);
-
-
 ///////////////////////end-.........................
 #ifndef ONLINE_JUDGE
 	cout << "\nDone in " << (double) clock() / CLOCKS_PER_SEC << "sec" << endl;
@@ -138,7 +153,7 @@ finally when N = 1.000.000.000 then O(N) is NOT ok, you have to find something b
 // to sort string decending (); but with vec.rbegin()  and vec.rend();
 // NOT WORKING SOMETIME IN ONLINE JUDGE
 
-// itoa (int, char* str , int base);
+// itoa (ll, char* str , int base);
 //atoi convert string to int;
-//atol convert string to long;
+//atol convert string to ;
 //

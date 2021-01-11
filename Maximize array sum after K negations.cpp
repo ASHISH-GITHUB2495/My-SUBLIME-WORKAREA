@@ -1,5 +1,5 @@
 #include<bits/stdc++.h>
-
+#include<string>
 
 using namespace std;
 
@@ -13,8 +13,26 @@ using namespace std;
 #define bbit bitset <64>
 #define INT_BITS 16
 
+//Maximize array sum after K negations
+/*
+Example
+Input : arr[] = {-2, 0, 5, -1, 2}
+        K = 4
+Output: 10
+// Replace (-2) by -(-2), array becomes {2, 0, 5, -1, 2}
+// Replace (-1) by -(-1), array becomes {2, 0, 5, 1, 2}
+// Replace (0) by -(0), array becomes {2, 0, 5, 1, 2}
+// Replace (0) by -(0), array becomes {2, 0, 5, 1, 2}
 
 
+Input : arr[] = {9, 8, 8, 5}
+        K = 3
+Output: 20
+
+*/
+/*
+the time complexity here is O(n*k) but we can reduce it to O(n)
+by using priority queue....*/
 int32_t main()
 {
 #ifndef ONLINE_JUDGE
@@ -25,16 +43,55 @@ int32_t main()
 	ios_base:: sync_with_stdio(false);
 	cin.tie(0);
 //////////////////////////////////////start...............
-	int t;
-	cin >> t;
-	while (t--) {
-		int n, k;
-		cin >> n >> k;
 
-		cout << n <<" "<<k << endl;
+	int n;
 
+	cout << "Enter no. of elements \n";
+	cin >> n; int k;
 
+	vector<int> arr(n);
+	cout << "Enter elements\n";
+	for (int i = 0; i < n; i++)
+		cin >> arr[i];
+	cout << "Enter k : ";
+	cin >> k;
+
+	for (int i = 1; i <= k; i++) {
+		int min = INT_MAX;
+		int index = -1;
+
+		// Find minimum element in array for
+		// current operation and modify it
+		// i.e; arr[j] --> -arr[j]
+		for (int j = 0; j < n; j++) {
+			if (arr[j] < min) {
+				min = arr[j];
+				index = j;
+			}
+		}
+
+		// this the condition if we find 0 as
+		// minimum element, so it will useless to
+		// replace 0 by -(0) for remaining operations
+		if (min == 0)
+			break;
+
+		// Modify element of array
+		arr[index] = -arr[index];
 	}
+
+	// Calculate sum of array
+	int sum = 0;
+	for (int i = 0; i < n; i++)
+		sum += arr[i];
+
+
+	cout << "Required sum is : " << sum << endl;
+
+
+
+
+
 ///////////////////////end-.........................
 #ifndef ONLINE_JUDGE
 	cout << "\nDone in " << (double) clock() / CLOCKS_PER_SEC << "sec" << endl;
@@ -62,7 +119,7 @@ finally when N = 1.000.000.000 then O(N) is NOT ok, you have to find something b
 // to sort string decending (); but with vec.rbegin()  and vec.rend();
 // NOT WORKING SOMETIME IN ONLINE JUDGE
 
-// itoa (ll, char* str , int base);
+// itoa (int, char* str , int base);
 //atoi convert string to int;
-//atol convert string to ;
+//atol convert string to long;
 //
