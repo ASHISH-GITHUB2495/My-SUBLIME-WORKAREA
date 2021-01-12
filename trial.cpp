@@ -13,38 +13,26 @@ using namespace std;
 #define bbit bitset <64>
 #define INT_BITS 16
 
-pair<  ll ,   ll > reflect (  ll  x,   ll  y,   ll  sphere, ll n)
+struct Node { 
+    int data; 
+    struct Node* left; 
+    struct Node* right; 
+  
+    Node(int val) 
+    { 
+        data = val; 
+ 
+        left = NULL; 
+        right = NULL; 
+    } 
+}; 
+
+int height(Node* root)
 {
-	if (y == n)
-	{
-		if (sphere == 0)
-			return {0, n - x};
-		else
-			return {y, x};
-
-	}
-	else if (x == n)
-	{
-		if (sphere == 0)
-			return {y, x};
-		else
-			return {n - y, 0};
-	}
-	else if (y == 0)
-	{
-		if (sphere == 0)
-			return {n, n - x};
-		else
-			return {y, x};
-	}
-	else
-	{
-		if (sphere == 0)
-			return {y, x};
-		else
-			return {n - y, n};
-
-	}
+	if(root == NULL)
+		 return 0;
+    else 
+    	return 1+ max(height(root->left),height(root->right));
 }
 
 int32_t main()
@@ -57,75 +45,16 @@ int32_t main()
 	ios_base:: sync_with_stdio(false);
 	cin.tie(0);
 //////////////////////////////////////start...............
-	int t;
-	cin >> t;
-	while (t--) {
-		int n, k;
-		cin >> n >> k;
+	  /*create root*/
+    struct Node* root = new Node(1); 
+    root->left = new Node(2); 
+    root->right = new Node(3); 
+    root->left->left = new Node(4); 
+    root->left->left->left = new Node(5);
 
-		std::vector<int> v(n);
+  cout<<"Height of tree is: "<<height(root)<<endl;
 
-		for (int i = 0; i < n; i++)
-			cin >> v[i];
-		sort(v.begin(), v.end(), greater<int>());
-
-
-
-
-		int sum1 = 0 , sum2 = 0 , cnt1 = 0 , cnt2 = 0 , f1 = 0 , f2 = 0;
-
-		for (int i = 0; i < n && (sum1 < k || sum2 < k); i++)
-		{
-			if (i % 2 == 0) {
-				if ( sum1 < k)
-					sum1 += v[i] , cnt1++;
-				else if (sum2 < k)
-					sum2 += v[i] , cnt1++;
-
-			}
-			else if (i % 2 == 1)
-			{	if (sum2 < k)
-					sum2 += v[i] , cnt1++;
-				else if (sum1 < k)
-					sum1 += v[i] , cnt1++;
-			}
-		}
-
-		if (sum1 >= k && sum2 >= k)
-			f1 = 1;
-
-
-
-		sum1 = 0, sum2 = 0;
-
-		for (int i = 0; i < n; i++) {
-			if (sum1 < k) {
-				sum1 += v[i];
-				cnt2++;
-			}
-			else if (sum2 < k)
-			{
-				sum2 += v[i];
-				cnt2++;
-			}
-			else
-				break;
-		}
-
-
-
-		if (sum1 >= k && sum2 >= k)
-			f2 = 1;
-
-
-		if (f1 == 1 && f2 == 1)
-			cout << min(cnt1, cnt2) << endl;
-		else
-			cout << "-1" << endl;
-
-
-
-	}
+  
 ///////////////////////end-.........................
 #ifndef ONLINE_JUDGE
 	cout << "\nDone in " << (double) clock() / CLOCKS_PER_SEC << "sec" << endl;

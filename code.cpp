@@ -1,6 +1,7 @@
 #include<bits/stdc++.h>
 
 
+
 using namespace std;
 
 #define pb push_back
@@ -13,6 +14,12 @@ using namespace std;
 #define bbit bitset <64>
 #define INT_BITS 16
 
+int factorial (int n){
+	if(n == 1)
+		return 1;
+	else 
+	    return n*factorial(n-1);
+}
 
 
 int32_t main()
@@ -25,16 +32,10 @@ int32_t main()
 	ios_base:: sync_with_stdio(false);
 	cin.tie(0);
 //////////////////////////////////////start...............
-	int t;
-	cin >> t;
-	while (t--) {
-		int n, k;
-		cin >> n >> k;
+	int n;
+	cin>>n;
+	cout<<factorial(n)<<endl;
 
-		cout << n <<" "<<k << endl;
-
-
-	}
 ///////////////////////end-.........................
 #ifndef ONLINE_JUDGE
 	cout << "\nDone in " << (double) clock() / CLOCKS_PER_SEC << "sec" << endl;
