@@ -14,13 +14,7 @@ using namespace std;
 #define bbit bitset <64>
 #define INT_BITS 16
 
-int factorial (int n){
-	if(n == 1)
-		return 1;
-	else 
-	    return n*factorial(n-1);
-}
-
+int n, x[333], y[333], e[333]={0}, ans;
 
 int32_t main()
 {
@@ -32,9 +26,21 @@ int32_t main()
 	ios_base:: sync_with_stdio(false);
 	cin.tie(0);
 //////////////////////////////////////start...............
-	int n;
-	cin>>n;
-	cout<<factorial(n)<<endl;
+	cin >> n;
+	for (int i = 0; i < n; i++)cin >> x[i] >> y[i];
+	for (int i = 0; i < n; i++)
+		for (int j = 0; j < n; j++) {
+			if (x[i] == x[j] && y[i] < y[j])e[i] |= 1;
+			if (x[i] == x[j] && y[i] > y[j])e[i] |= 2;
+			if (x[i] < x[j] && y[i] == y[j])e[i] |= 4;
+			if (x[i] > x[j] && y[i] == y[j])e[i] |= 8;
+
+		}
+	for (int i = 0; i < n; i++)
+	{	cout << e[i] << endl ;
+		if (e[i] == 15)ans++;
+	}
+	cout << ans;
 
 ///////////////////////end-.........................
 #ifndef ONLINE_JUDGE
