@@ -1,54 +1,51 @@
 #include<bits/stdc++.h>
+#include<algorithm>
 using namespace std;
 
 #define int long long
 #define mod 1073741824
+/*
+sequence pattern matching..
+i.e, we have to find the a is subsequence of b...
+
+so , min(a,size(),b.size()) = LCS(a,b);
 
 
+ */
+bool SequencePatternMatching(string a, string b) {
+	int n = a.size() , m = b.size();
 
-int minimumSubsetSumDifference(vector <int> v) {
+	int dp[n + 1][m + 1];
 
-	int sum = 0; int n = v.size();
+	for (int i = 0; i <= n; i++)
+		for (int j = 0; j <= m; j++)
+			if (i == 0 || j == 0)
+				dp[i][j] = 0;
 
-	for (int i = 0; i < n; i++)
-		sum += v[i];                   // taking whole sum of array
 
-	int dp[n + 1][sum + 1];            // creating subset sum table
+ 
 
-	memset(dp, -1, sizeof(dp));
-
-	for (int i = 0; i < n + 1; i++) {
-		for (int j = 0; j < sum + 1; j++)
-		{
-			if (i == 0)
-				dp[i][j] = false;
-			if (j == 0)
-				dp[i][j] = true;
-		}
-	}
-
-	for (int i = 1; i < n + 1; i++) {
-		for (int j = 1; j < sum + 1; j++) {
-			if (v[i - 1] <= j)
-				dp[i][j] = dp[i - 1][j - v[i - 1]] || dp[i - 1][j];
+	for (int i = 1; i <= n; i++) {
+		for (int j = 1; j <= m; j++) {
+			if (a[i - 1] == b[j - 1])
+				dp[i][j] = 1 + dp[i - 1][j - 1];
 			else
-				dp[i][j] = dp[i - 1][j];
+			{
+				if (dp[i][j - 1] > dp[i - 1][j])
+					dp[i][j] = dp[i][j - 1];
+				else
+					dp[i][j] = dp[i - 1][j];
+			}
 		}
 	}
 
-	vector <int> vv;       // getting elements with are valid with one part
-	for(int i=0;i<(sum+1)/2;i++)
-		if(dp[n-1][i])
-		vv.push_back(i);
-
-    int minn=INT_MAX;  
-	for(int i=0;i<vv.size();i++)   //Finding minimum difference
-		minn = min(minn,sum-(2*vv[i]));
-
-	return minn;
-
-
+  if(min(n,m)==dp[n][m])
+  	return true;
+  else
+  	return false;
+	
 }
+
 
 int32_t main()
 {
@@ -60,16 +57,13 @@ int32_t main()
 	ios_base:: sync_with_stdio(false);
 	cin.tie(0);
 //////////////////////////////////////start............
-	int n;
-	cin >> n;
-
-	vector <int> v(n);
-	for (int i = 0; i < n; i++)
-		cin >> v[i];
-
-
-	cout << minimumSubsetSumDifference(v) << endl;
-
+	string a,b;
+	cin>>a>>b;
+     
+    if(SequencePatternMatching(a,b))
+    	cout<<"Yes"<<endl;
+    else
+    	cout<<"No"<<endl;
 
 ///////////////////////end-.........................
 
