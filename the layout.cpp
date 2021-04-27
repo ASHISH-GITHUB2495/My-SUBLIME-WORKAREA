@@ -50,7 +50,7 @@ int main()
 	return 0;
 
 }
-
+// string binary = std::bitset<10>(101).to_string(); to convert to binary in string any number
 //c v a s selecting text or x for selecting cut
 //ctrl+d after selecting text to select same type
 //ctrl+shift+d for copy and paste the line below it

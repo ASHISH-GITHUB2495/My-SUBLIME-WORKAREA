@@ -1,75 +1,72 @@
-#include<bits/stdc++.h>
+#include<bits/stdc++.h>         //ctrl+alt+f for formate
 using namespace std;
 
+#define int long long
+#define mod 100005007
 
-vector<int> *adj;
-int *vis;
 
-int bfs(int a,int b,int n)
-{   memset(vis,0,sizeof(vis));
-    int cnt=0;
-    queue<int> q;
-    q.push(a);
-    vis[a]=1;
-    int dist[n+1];
-    dist[a]=0;
-    while(!q.empty())
-    {
-        int curr=q.front();
-        q.pop();
-        for(auto i:adj[curr])
-        {
-            if(vis[i]==0)
-            {
-                vis[i]=1;
-                dist[i]=dist[curr]+1;
-                if(dist[i]==b)
-                {
-                   cout<<i<<"->";
-                    cnt+=1;
-                }   
-                q.push(i);
-            }
-        }
+bool solve(string str, int n) {
+ 
+    int c1 = 0, c2 = 0;
+    for (int i = 0; i < n; i++) {
+        if (str[i] == 'T')
+            c1++;
+        else
+            c2++;
+
+        if (c2 > c1)
+            return false;
+
     }
-    //cout<<endl;
-    return cnt;
+    c1=0,c2=0;
+    for (int i = n-1; i >= 0; i--) {
+        if (str[i] == 'T')
+            c1++;
+        else
+            c2++;
+
+        if (c2 > c1)
+            return false;
+
+    }
+
+
+
+    if (c2*2==c1)
+        return true;
+    else
+        return false;
+
 }
-
-
 int32_t main()
 {
 #ifndef ONLINE_JUDGE
-	clock_t tStart = clock();
-	freopen("input.txt", "r", stdin);
-	freopen("output.txt", "w", stdout);
+    clock_t tStart = clock();
+    freopen("input.txt", "r", stdin);
+    freopen("output.txt", "w", stdout);
 #endif
-	ios_base:: sync_with_stdio(false);
-	cin.tie(0);
+    ios_base:: sync_with_stdio(false);
+    cin.tie(0);
+//////////////////////////////////////start........
 
-    int n,e;
-    cin>>n>>e;
-    adj=new vector<int> [n+1];
-    vis=new int [n+1];
-    for(int i=0;i<e;i++)
-    {
-        int a,b;
-        cin>>a>>b;
-        adj[a].push_back(b);
-        adj[b].push_back(a);
+    int t;
+    cin >> t;
+    while (t--) {
+        int n;
+        cin >> n;
+        string str;
+        cin >> str;
+
+        if (solve(str, n))
+            cout << "YES" << endl;
+        else
+            cout << "NO" << endl;
+
     }
-    int m;
-    cin>>m;
-   // memset(vis,false,sizeof(vis));
-    for(int i=0;i<m;i++)
-    {
-    	
-        int a,b;
-        cin>>a>>b;
-       //cout<<a<< "->";
-        cout<<bfs(a,b,n+1);
-        cout<<endl;
-       
-    }
+///////////////////////end-........................
+
     return 0;
+
 }
+
+
