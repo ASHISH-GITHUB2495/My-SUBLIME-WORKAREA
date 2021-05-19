@@ -4,37 +4,12 @@ using namespace std;
 #define int long long
 #define mod 100005007
 
-// Climbing stairs with variable jumps
-/* Here you have given n which is no. of ladders and array of n size where from every
-   ladder their is specified no. of jumps allowed..you are in 0th and you have to go to the top.
 
 
 
-
-*/
-int ladder[100];
-int ladders(int n, int allowed[]) {
-
-	//base cases
-	ladder[n] = 1;
-
-	for (int i = n - 1; i >= 0; i--) {
-
-		for (int j = 1; j <= allowed[i]; j++) {
-			if (i + j <= n)
-				ladder[i] += ladder[i + j];
-		}
-	}
-	for(int i=0;i<=n;i++)
-		cout<<ladder[i]<<" ";
-	cout<<endl;
-
-	return ladder[0];
-}
-
- 
 int32_t main()
 {
+
 #ifndef ONLINE_JUDGE
 	clock_t tStart = clock();
 	freopen("input.txt", "r", stdin);
@@ -42,15 +17,25 @@ int32_t main()
 #endif
 	ios_base:: sync_with_stdio(false);
 	cin.tie(0);
-//////////////////////////////////////start........
-	int n;
-	cin >> n;
-	int allowed[n];
-	for (int i = 0; i < n; i++) cin >> allowed[i];
+//////////////////////////////////////start............
+	int n = 5;
+	int arr[n];
+	for (int i = 0; i < n; i++)cin >> arr[i];
+    
+    int s=arr[0];
+    int f=0;
+   for(int i=1;i<n;i++){
+      s = arr[i]-s;
+      if(s<0){
+      	f=1;
+      	cout<<-1<<endl;
+      	break;
+      }
 
-	cout << ladders(n, allowed) << endl;
-
-///////////////////////end-........................
+   }
+   if(f==0)
+   	cout<<s<<endl;
+///////////////////////end-.........................
 
 	return 0;
 
