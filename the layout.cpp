@@ -25,15 +25,6 @@ int main()
 	cin.tie(0);
 //////////////////////////////////////start...............
 
-
-
-
-	// KALYANI BABU THIS IS MY NEW LAYOUT ...
-	// IN THE PREVIOUS ONE THERE WAS A FOR LOOP WHICH ONLY WORKS FOR 'I' & 'J' VARIABLE
-	// BUT IN THIS NEW LAYOUT ANY VARIABLE WORKS YOU HAVE TO JUST PASS THE VARIABLE
-	// ALSO INCLUDES "UNORDERED_MAP" WHICH IS VERY USEFUL
-	// LATER I WILL ADD OTHERTHINGS AS I WILL BE LEARNING , WHICH YOU WILL MUST NEED .
-	// THANK YOU BYE. UMMAH
 	int n;
 	cin >> n;
 
@@ -50,6 +41,8 @@ int main()
 	return 0;
 
 }
+
+//----SUBLIME SHORTCUT----
 // string binary = std::bitset<10>(101).to_string(); to convert to binary in string any number
 //c v a s selecting text or x for selecting cut
 //ctrl+d after selecting text to select same type
@@ -60,8 +53,19 @@ int main()
 //ctrl+" / " for commenting a line
 
 /*
+
+//-----TIME COMPLEXITY------
 when N <= 10, then both O(N!) and O(2N) are ok (for 2N probably N <= 20 is ok too)
 when N <= 100, then O(N3) is ok (I guess that N4 is also ok, but never tried)
 when N <= 1.000, then N2 is also ok
 when N <= 1.000.000, then O(N) is fine (I guess that 10.000.000 is fine too, but I never tried in contest)
 finally when N = 1.000.000.000 then O(N) is NOT ok, you have to find something better…*/
+
+
+//--PRIORITY QUEUE-----
+//to implement priority queue --- by default - max priority queue --> priority_queue <int> p;
+//to implement min priority queue  ---> priority_queue <int, vector<int>,greater<int>> p;
+
+
+
+//to implement dijikstra implement max priority queue in bfs...
